@@ -270,3 +270,5 @@ F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\OCTGNwLobby.applicat
 F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\OCTGNwLobby.exe
 F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\LobbyHost.g.cs
 F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\LobbyHost.baml
+F:\Programming\SVNs\owl\trunk\octgnFX\Octgn\bin\Release\OCTGNwLobby.exe.config
+F:\Programming\SVNs\owl\trunk\octgnFX\Octgn\obj\Release\OCTGNwLobby.exe
