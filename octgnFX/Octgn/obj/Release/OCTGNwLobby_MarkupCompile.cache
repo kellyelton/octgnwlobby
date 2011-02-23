@@ -1,0 +1,20 @@
+﻿OCTGNwLobby
+
+
+winexe
+C#
+.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\
+Octgn
+none
+false
+TRACE
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\App.xaml
+54-641067602
+92103662915
+130-1449520689
+26-789347702
+AboutWindow.xaml;DeckBuilder\DeckBuilderWindow.xaml;DeckBuilder\FilterControl.xaml;DeckBuilder\SearchControl.xaml;ErrorWindow.xaml;Launcher\LobbyHost.xaml;Launcher\Login.xaml;Launcher\ServerConnect.xaml;Launcher\Lobby.xaml;Launcher\InstallNoticeDialog.xaml;Launcher\InstallSetsProgressDialog.xaml;Launcher\PatchDialog.xaml;Launcher\PatchProgressDialog.xaml;Launcher\UpgradeMessage.xaml;Launcher\GameManager.xaml;Launcher\GameSelector.xaml;Launcher\Join.xaml;Launcher\LauncherWindow.xaml;Launcher\MainMenu.xaml;Launcher\Serve.xaml;Launcher\StartGame.xaml;Play\Dialogs\InteractiveConsole.xaml;Play\Dialogs\PickCardsDialog.xaml;Play\Gui\CardControl.xaml;Play\Gui\CardListControl.xaml;Play\Gui\ChatControl.xaml;Play\Dialogs\LimitedDialog.xaml;Play\Gui\PileCollapsedControl.xaml;Play\Gui\GroupWindow.xaml;Play\Gui\HandControl.xaml;Play\Gui\MarkerControl.xaml;Play\Gui\PileControl.xaml;Play\Gui\PlayerControl.xaml;Play\Gui\TableControl.xaml;Play\PlayWindow.xaml;Resources\PlayResources.xaml;Resources\Themes\BlueGlass\Button.xaml;Resources\Themes\BlueGlass\CardRun.xaml;Resources\Themes\BlueGlass\ChildWindow.xaml;Resources\Themes\BlueGlass\CommonControls.xaml;Resources\Themes\BlueGlass\Menu.xaml;Resources\Themes\BlueGlass\NumericUpDown.xaml;Resources\Themes\BlueGlass\Panel.xaml;Resources\Themes\BlueGlass\ProgressBar.xaml;Resources\Themes\BlueGlass\ScrollBar.xaml;Resources\Themes\BlueGlass\Tabs.xaml;Resources\Themes\BlueGlass\Window.xaml;Resources\Themes\ChildWindow.xaml;Resources\Themes\Global.xaml;Resources\Themes\NumericUpDown.xaml;Resources\Themes\Target.xaml;Script\CardDlg.xaml;Script\InputDlg.xaml;Script\MarkerDlg.xaml;
+
+False
+

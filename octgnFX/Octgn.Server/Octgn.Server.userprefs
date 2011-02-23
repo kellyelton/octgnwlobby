@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="f:\Programming\SVNs\NetShit\ShitSock.cs">
+    <Files>
+      <File FileName="..\..\oserver\oserver\Main.cs" Line="9" Column="39" />
+      <File FileName="..\..\oserver\oserver\ConsoleHand.cs" Line="15" Column="4" />
+      <File FileName="f:\Programming\SVNs\NetShit\ShitSock.cs" Line="212" Column="30" />
+      <File FileName="f:\Programming\SVNs\NetShit\SocketMessage.cs" Line="34" Column="20" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

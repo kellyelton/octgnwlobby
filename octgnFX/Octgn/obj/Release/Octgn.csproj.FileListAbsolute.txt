@@ -1,0 +1,272 @@
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\OCTGN.exe.config
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Scripting\Lib\abc.py
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Scripting\Lib\collections.py
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Scripting\Lib\keyword.py
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Scripting\Lib\_abcoll.py
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Resources\Icon.ico
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Resources\Deck.ico
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Resources\Game.ico
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Resources\Patch.ico
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Resources\Set.ico
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\OCTGN.exe.manifest
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\OCTGN.application
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\OCTGN.exe
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\IronPython.dll
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\IronPython.Modules.dll
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Microsoft.Dynamic.dll
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Microsoft.Scripting.dll
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Microsoft.Windows.Shell.dll
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Octgn.Data.dll
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Octgn.Server.dll
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\RibbonControlsLibrary.dll
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\VistaDB.NET20.dll
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Octgn.Data.pdb
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Octgn.Server.pdb
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\IronPython.xml
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\IronPython.Modules.xml
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Microsoft.Dynamic.xml
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Microsoft.Windows.Shell.pdb
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\Microsoft.Windows.Shell.xml
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\RibbonControlsLibrary.pdb
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\RibbonControlsLibrary.xml
+F:\Programming\SVNs\octgnFX\Octgn\bin\Release\VistaDB.NET20.xml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\ResolveAssemblyReference.cache
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\AboutWindow.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\DeckBuilder\FilterControl.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\ErrorWindow.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\InstallNoticeDialog.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\InstallSetsProgressDialog.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\PatchDialog.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\PatchProgressDialog.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\UpgradeMessage.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\LauncherWindow.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\MainMenu.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Dialogs\InteractiveConsole.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\ChatControl.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Dialogs\LimitedDialog.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\Button.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\CommonControls.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\Menu.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\Panel.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\ProgressBar.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\ScrollBar.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\Window.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\Global.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\Target.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Script\InputDlg.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Script\MarkerDlg.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\App.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\AboutWindow.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\DeckBuilder\DeckBuilderWindow.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\DeckBuilder\FilterControl.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\DeckBuilder\SearchControl.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\ErrorWindow.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\InstallNoticeDialog.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\InstallSetsProgressDialog.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\PatchDialog.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\PatchProgressDialog.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\UpgradeMessage.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\GameManager.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\GameSelector.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\Join.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\LauncherWindow.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\MainMenu.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\Serve.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\StartGame.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Dialogs\InteractiveConsole.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Dialogs\PickCardsDialog.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\CardControl.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\CardListControl.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\ChatControl.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Dialogs\LimitedDialog.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\PileCollapsedControl.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\GroupWindow.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\HandControl.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\MarkerControl.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\PileControl.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\PlayerControl.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\TableControl.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\PlayWindow.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\NumericUpDown.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Script\CardDlg.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Script\InputDlg.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Script\MarkerDlg.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\App.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\OCTGN_Content.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\GeneratedInternalTypeHelper.g.cs
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\OCTGN_MarkupCompile.cache
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\OCTGN_MarkupCompile.lref
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\DeckBuilder\DeckBuilderWindow.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\DeckBuilder\SearchControl.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\GameManager.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\GameSelector.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\Join.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\Serve.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Launcher\StartGame.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Dialogs\PickCardsDialog.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\CardControl.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\CardListControl.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\PileCollapsedControl.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\GroupWindow.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\HandControl.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\MarkerControl.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\PileControl.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\PlayerControl.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\Gui\TableControl.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Play\PlayWindow.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\PlayResources.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\CardRun.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\ChildWindow.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\NumericUpDown.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\Tabs.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\ChildWindow.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Resources\Themes\NumericUpDown.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Script\CardDlg.baml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\OCTGN.g.resources
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\Octgn.Properties.Resources.resources
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\GenerateResource.read.1.tlog
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\GenerateResource.write.1.tlog
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\OCTGN.TrustInfo.xml
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\OCTGN.exe.manifest
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\OCTGN.application
+F:\Programming\SVNs\octgnFX\Octgn\obj\Release\OCTGN.exe
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Scripting\Lib\abc.py
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Scripting\Lib\collections.py
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Scripting\Lib\keyword.py
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Scripting\Lib\_abcoll.py
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Resources\Icon.ico
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Resources\Deck.ico
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Resources\Game.ico
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Resources\Patch.ico
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Resources\Set.ico
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\IronPython.dll
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\IronPython.Modules.dll
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Microsoft.Dynamic.dll
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Microsoft.Scripting.dll
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Microsoft.Windows.Shell.dll
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Octgn.Data.dll
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Octgn.Server.dll
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\RibbonControlsLibrary.dll
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\VistaDB.NET20.dll
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Octgn.Data.pdb
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Octgn.Server.pdb
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\IronPython.xml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\IronPython.Modules.xml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Microsoft.Dynamic.xml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Microsoft.Windows.Shell.pdb
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\Microsoft.Windows.Shell.xml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\RibbonControlsLibrary.pdb
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\RibbonControlsLibrary.xml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\VistaDB.NET20.xml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\ResolveAssemblyReference.cache
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\AboutWindow.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\DeckBuilder\FilterControl.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\ErrorWindow.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\InstallNoticeDialog.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\InstallSetsProgressDialog.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\PatchDialog.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\PatchProgressDialog.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\UpgradeMessage.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\LauncherWindow.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\MainMenu.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Dialogs\InteractiveConsole.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\ChatControl.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Dialogs\LimitedDialog.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\Button.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\CommonControls.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\Menu.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\Panel.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\ProgressBar.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\ScrollBar.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\Window.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\Global.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\Target.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Script\InputDlg.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Script\MarkerDlg.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\App.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\AboutWindow.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\DeckBuilder\DeckBuilderWindow.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\DeckBuilder\FilterControl.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\DeckBuilder\SearchControl.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\ErrorWindow.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\Login.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\ServerConnect.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\Lobby.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\InstallNoticeDialog.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\InstallSetsProgressDialog.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\PatchDialog.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\PatchProgressDialog.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\UpgradeMessage.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\GameManager.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\GameSelector.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\Join.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\LauncherWindow.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\MainMenu.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\Serve.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\StartGame.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Dialogs\InteractiveConsole.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Dialogs\PickCardsDialog.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\CardControl.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\CardListControl.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\ChatControl.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Dialogs\LimitedDialog.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\PileCollapsedControl.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\GroupWindow.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\HandControl.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\MarkerControl.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\PileControl.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\PlayerControl.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\TableControl.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\PlayWindow.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\NumericUpDown.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Script\CardDlg.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Script\InputDlg.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Script\MarkerDlg.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\App.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\GeneratedInternalTypeHelper.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\DeckBuilder\DeckBuilderWindow.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\DeckBuilder\SearchControl.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\Login.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\ServerConnect.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\Lobby.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\GameManager.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\GameSelector.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\Join.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\Serve.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\StartGame.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Dialogs\PickCardsDialog.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\CardControl.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\CardListControl.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\PileCollapsedControl.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\GroupWindow.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\HandControl.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\MarkerControl.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\PileControl.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\PlayerControl.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\Gui\TableControl.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Play\PlayWindow.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\PlayResources.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\CardRun.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\ChildWindow.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\NumericUpDown.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\BlueGlass\Tabs.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\ChildWindow.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Resources\Themes\NumericUpDown.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Script\CardDlg.baml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Octgn.Properties.Resources.resources
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\GenerateResource.read.1.tlog
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\GenerateResource.write.1.tlog
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\OCTGNwLobby.exe.config
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\OCTGNwLobby.exe.manifest
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\OCTGNwLobby.application
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\bin\Release\OCTGNwLobby.exe
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\OCTGNwLobby_Content.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\OCTGNwLobby_MarkupCompile.cache
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\OCTGNwLobby_MarkupCompile.lref
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\OCTGNwLobby.g.resources
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\OCTGNwLobby.TrustInfo.xml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\OCTGNwLobby.exe.manifest
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\OCTGNwLobby.application
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\OCTGNwLobby.exe
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\LobbyHost.g.cs
+F:\Programming\SVNs\octgn working\octgnFX\Octgn\obj\Release\Launcher\LobbyHost.baml

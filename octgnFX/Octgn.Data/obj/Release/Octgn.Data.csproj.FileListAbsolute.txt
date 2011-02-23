@@ -1,0 +1,14 @@
+F:\Programming\SVNs\octgnFX\Octgn.Data\bin\Release\Octgn.Data.dll
+F:\Programming\SVNs\octgnFX\Octgn.Data\bin\Release\Octgn.Data.pdb
+F:\Programming\SVNs\octgnFX\Octgn.Data\bin\Release\VistaDB.NET20.dll
+F:\Programming\SVNs\octgnFX\Octgn.Data\bin\Release\VistaDB.NET20.xml
+F:\Programming\SVNs\octgnFX\Octgn.Data\obj\Release\ResolveAssemblyReference.cache
+F:\Programming\SVNs\octgnFX\Octgn.Data\obj\Release\Octgn.Data.dll
+F:\Programming\SVNs\octgnFX\Octgn.Data\obj\Release\Octgn.Data.pdb
+F:\Programming\SVNs\octgn working\octgnFX\Octgn.Data\bin\Release\Octgn.Data.dll
+F:\Programming\SVNs\octgn working\octgnFX\Octgn.Data\bin\Release\Octgn.Data.pdb
+F:\Programming\SVNs\octgn working\octgnFX\Octgn.Data\bin\Release\VistaDB.NET20.dll
+F:\Programming\SVNs\octgn working\octgnFX\Octgn.Data\bin\Release\VistaDB.NET20.xml
+F:\Programming\SVNs\octgn working\octgnFX\Octgn.Data\obj\Release\ResolveAssemblyReference.cache
+F:\Programming\SVNs\octgn working\octgnFX\Octgn.Data\obj\Release\Octgn.Data.dll
+F:\Programming\SVNs\octgn working\octgnFX\Octgn.Data\obj\Release\Octgn.Data.pdb
