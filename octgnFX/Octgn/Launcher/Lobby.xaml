@@ -47,8 +47,8 @@
                         <RowDefinition Height="49*" />
                         <RowDefinition Height="398*" />
                     </Grid.RowDefinitions>
-                    <Button Content="Join" Height="35" Margin="0,10,6,0" Name="button3" VerticalAlignment="Top" HorizontalAlignment="Right" Width="92" Click="button3_Click" />
-                    <Button Content="Host" Height="35" Margin="407,10,0,0" Name="button4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="96" Click="button4_Click" />
+                    <Button Content="Join" Height="35" Margin="0,10,6,0" Name="btnJoin" VerticalAlignment="Top" HorizontalAlignment="Right" Width="92" Click="button3_Click" />
+                    <Button Content="Host" Height="35" Margin="407,10,0,0" Name="btnHost" VerticalAlignment="Top" HorizontalAlignment="Left" Width="96" Click="btnHost_Click" />
                     <DataGrid AutoGenerateColumns="False" Grid.Row="1" HorizontalAlignment="Stretch" Margin="5" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding}" IsEnabled="True" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="GID" Binding="{Binding Path=intUGameNum}"/>
@@ -58,7 +58,8 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <TextBlock Margin="6,17,514,4" Name="textBlock1" Text="Game info: " Width="87" Foreground="White" Background="{x:Null}" />
-                    <TextBox Height="34" HorizontalAlignment="Left" Margin="73,10,0,0" Name="textBox1" VerticalAlignment="Top" Width="328" VerticalContentAlignment="Center" />
+                    <TextBox Height="34" HorizontalAlignment="Left" Margin="73,10,0,0" Name="textBox1" VerticalAlignment="Top" Width="153" VerticalContentAlignment="Center" />
+                    <ComboBox Height="34" HorizontalAlignment="Left" Margin="232,10,0,0" Name="comboBox1" VerticalAlignment="Top" Width="169" ItemsSource="{Binding}" />
                 </Grid>               
             </TabItem>
         </TabControl>

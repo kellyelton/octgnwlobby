@@ -83,7 +83,7 @@ namespace Octgn.Launcher
             {
                 if (Program.LClient.Connected && isLobbyGame)
                 {
-                    Program.LClient.Host_Game(isIPv6 ? ipList.Items[0].ToString() : ipv4List.Items[0].ToString(), port, Program.Game.Definition);
+                   // Program.LClient.Host_Game(isIPv6 ? ipList.Items[0].ToString() : ipv4List.Items[0].ToString(), port, Program.Game.Definition);
                     NavigationService.Navigate(new StartGame(true));
                 }
                 else

@@ -26,10 +26,16 @@ namespace Octgn.Launcher
 			}
 			else
 			{
-				descriptionLabel.Text = "The following players have joined the game.\nPlease wait until the game starts, or click 'Cancel' to leave this game.";
-				startBtn.Visibility = Visibility.Collapsed;
-				options.IsEnabled = playersList.IsEnabled = false;
+                if (!Program.LClient.isHosting)
+                {				
+                    descriptionLabel.Text = "The following players have joined the game.\nPlease wait until the game starts, or click 'Cancel' to leave this game.";
+				    startBtn.Visibility = Visibility.Collapsed;
+				    options.IsEnabled = playersList.IsEnabled = false;
+                }
+                else
+                    descriptionLabel.Text = "The following players have joined your game.\nClick 'Start' when everyone has joined. No one will be able to join once the game has started.";
 			}
+
 
             Loaded += delegate
             {
@@ -50,9 +56,9 @@ namespace Octgn.Launcher
                 {
                     if (Program.LClient != null)
                     {
-                        if (Program.LClient.isHosting)
-                            Program.LClient.unHost_Game();
-                        Program.LClient.isJoining = false;
+                        //if (Program.LClient.isHosting)
+                            //Program.LClient.unHost_Game();
+                        //Program.LClient.isJoining = false;
                     }
             
                 }
@@ -87,8 +93,6 @@ namespace Octgn.Launcher
             {
                 if (bIsLobbyGame && Program.LClient.isHosting)
                     Program.LClient.unHost_Game();
-                if (bIsLobbyGame && Program.LClient.isJoining)
-                    Program.LClient.isJoining = false;
             }
             Program.lwMainWindow.isOkToClose = true;
 			launcherWnd.Close();
@@ -117,7 +121,8 @@ namespace Octgn.Launcher
                     Program.LClient.isJoining = false;
                     if (Program.LClient.isHosting)
                     {
-                        NavigationService.RemoveBackEntry();
+                        //NavigationService.RemoveBackEntry();
+                        Program.LClient.isHosting = false;
                         Program.LClient.unHost_Game();
                     }
                 }

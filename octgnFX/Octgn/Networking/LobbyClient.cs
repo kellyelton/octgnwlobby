@@ -5,7 +5,6 @@ using System.Text;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
-using Skylabs.Networking;
 using System.Windows;
 using System.Security.Cryptography;
 using System.Collections;
@@ -13,10 +12,11 @@ using System.Windows.Navigation;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using Octgn.Properties;
+using Skylabs.NetShit;
 
 namespace Octgn.Networking
 {
-    public class LobbyClient : SocketClient
+    public class LobbyClient : ShitSock
     {
         public delegate void ConnectionDelegate(String ConEvent);
         public delegate void GameHostDelegate(HostedGame game, Boolean unHosting, Boolean isGameListItem);
@@ -146,11 +146,9 @@ namespace Octgn.Networking
             return text;
         }
 
-        public void Host_Game(String ip, int port, Definitions.GameDef def)
+        public void Host_Game(Definitions.GameDef def)
         {
             SocketMessage sm = new SocketMessage("HOST");
-            sm.Arguments.Add(ip);
-            sm.Arguments.Add(port.ToString());
             sm.Arguments.Add(def.Name);
             sm.Arguments.Add(def.Id.ToString());
             sm.Arguments.Add(def.Version.ToString());
@@ -166,7 +164,7 @@ namespace Octgn.Networking
             writeMessage(sm);
         }
         override
-        public void handleError(String error) 
+        public void handleError(Exception ex,String error) 
         {
             try
             {
@@ -339,11 +337,11 @@ namespace Octgn.Networking
                         case "HOST":
                             try
                             {
-                                String t = (string)args[0];
+                                String t = (string)args[6];
                                 String[] ips = t.Split(new char[1] { '?' });
-                                HostedGame hg = new HostedGame((string)args[5],(string)args[3],(string)args[2],(string)args[4],"",ips,int.Parse((string)args[1]));
-                                hg.strHostName = (string)args[6];
-                                hg.intUGameNum = int.Parse((string)args[7]);
+                                HostedGame hg = new HostedGame((string)args[3],(string)args[1],(string)args[0],(string)args[2],"",ips,int.Parse((string)args[7]));
+                                hg.strHostName = (string)args[4];
+                                hg.intUGameNum = int.Parse((string)args[5]);
                                 eGameHost.Invoke(hg, false, false);
                             }
                             catch (Exception e) { };

@@ -123,12 +123,22 @@ namespace Octgn.Play
     {
       base.OnClosing(e);
       var wnd = new Launcher.LauncherWindow();
+      if(Program.LClient != null)
+      {
+          Program.LClient.isHosting = false;
+          Program.LClient.isJoining = false;
+      }
       Application.Current.MainWindow = wnd;
       wnd.Show();
     }
 
     protected override void OnClosed(EventArgs e)
     {
+        if (Program.LClient != null)
+        {
+            Program.LClient.isHosting = false;
+            Program.LClient.isJoining = false;
+        }
       base.OnClosed(e);
       Program.StopGame(); // Fix: Don't do this earlier (e.g. in OnClosing) because an animation (e.g. card turn) may try to access Program.Game
     }

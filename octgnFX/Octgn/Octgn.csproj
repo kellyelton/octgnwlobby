@@ -43,7 +43,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>29</ApplicationRevision>
+    <ApplicationRevision>35</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -245,7 +245,6 @@
     <Compile Include="Networking\HostedGame.cs" />
     <Compile Include="Networking\LobbyClient.cs" />
     <Compile Include="Networking\Mute.cs" />
-    <Compile Include="Networking\SocketClient.cs" />
     <Compile Include="Networking\XmlParser.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -757,6 +756,10 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NetShit\trunk\NetShit.csproj">
+      <Project>{B637235E-7CC5-4600-BA00-46F5FACD2DE4}</Project>
+      <Name>NetShit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Octgn.Data\Octgn.Data.csproj">
       <Project>{6C6E53BA-E75B-4E93-98CA-3C39ED908B2C}</Project>
       <Name>Octgn.Data</Name>
@@ -812,22 +815,22 @@
   <ItemGroup>
     <PublishFile Include="OCTGN.pdb">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="VistaDB.NET20">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

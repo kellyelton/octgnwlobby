@@ -19,6 +19,7 @@ using Octgn.Definitions;
 using Octgn.Properties;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using Skylabs.NetShit;
 namespace Octgn.Launcher
 {
     public sealed partial class Lobby : Page
@@ -34,6 +35,16 @@ namespace Octgn.Launcher
         {
             eSub();
             InitializeComponent();
+
+            if (Program.GamesRepository != null)
+            {
+                foreach (Data.Game g in Program.GamesRepository.Games)
+                {
+                    comboBox1.Items.Add(g.Name);
+                }
+            } 
+            if (Program.Game != null)
+                comboBox1.Text = Program.Game.Definition.Name;
             
             this.rtbChat.SetValue(Paragraph.LineHeightProperty, .5);
             dataGrid1.ItemsSource = Program.LClient.HostedGames;
@@ -103,7 +114,24 @@ namespace Octgn.Launcher
                                     }
                                     else
                                     {
-                                        Program.LClient.HostedGames.Add(game);
+                                        if (game.strHostName == Program.LClient.strUserName)
+                                        {
+
+                                            IPAddress[] addresslist = Dns.GetHostAddresses(game.getStrHost()[0]);
+                                            ips = new String[addresslist.Length];
+                                            int i = 0;
+                                            foreach (IPAddress ip in addresslist)
+                                            {
+                                                ips[i] = ip.ToString();
+                                                i++;
+                                            }
+                                            Join_Game(ips, game.getIntPort());
+                                            //Program.Client = new Networking.Client(addresslist[0], game.getIntPort());
+                                            //Program.Client.Connect();
+                                            //Program.LClient.isHosting = true;
+                                        }
+                                        else
+                                            Program.LClient.HostedGames.Add(game);
                                     }
                                 }
                             )
@@ -174,7 +202,6 @@ namespace Octgn.Launcher
                                             LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", user.Username + " left the lobby.");
                                         }
                                     }
-                                    UpdateColors();
                                     Update_Online_Users();
                                 }
                             )
@@ -332,6 +359,8 @@ namespace Octgn.Launcher
 
         }
 
+
+
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             
@@ -348,158 +377,18 @@ namespace Octgn.Launcher
             listBox1.Items.Clear();
             for (int i = 0; i < Program.LClient.OnlineUsers.Count; i++)
             {
-                listBox1.Items.Add(Program.LClient.OnlineUsers[i].Username);
+                if(!listBox1.Items.Contains(Program.LClient.OnlineUsers[i].Username.ToString()))
+                    listBox1.Items.Add(Program.LClient.OnlineUsers[i].Username);
             }
             
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             NavigationService.RemoveBackEntry();
-            Skylabs.Networking.SocketClient.SocketMessage sm = new Skylabs.Networking.SocketClient.SocketMessage("GETONLINELIST");
+            SocketMessage sm = new SocketMessage("GETONLINELIST");
             Program.LClient.writeMessage(sm);
             Update_Online_Users();
             tbNickname.Text = "Your nickname: " + Program.LClient.strUserName;
-        }
-
-        private void UpdateColors()
-        {
-            return;
-            if (rtbChat.Document == null)
-                return;
-
-            TextRange documentRange = new TextRange(rtbChat.Document.ContentStart, rtbChat.Document.ContentEnd);
-            documentRange.ClearAllProperties();
-
-            TextPointer navigator = rtbChat.Document.ContentStart;
-            while (navigator.CompareTo(rtbChat.Document.ContentEnd) < 0)
-            {
-                TextPointerContext context = navigator.GetPointerContext(LogicalDirection.Backward);
-                if (context == TextPointerContext.ElementStart && navigator.Parent is Run)
-                {
-                    //navigator.Parent.
-                    CheckWordsInRun((Run)navigator.Parent);
-
-
-                }
-                navigator = navigator.GetNextContextPosition(LogicalDirection.Forward);
-
-            }
-
-            for (int i = 0; i < m_tags.Count; i++)
-            {
-                TextRange range = new TextRange(m_tags[i].StartPosition, m_tags[i].EndPosition);
-                switch (m_tags[i].Type)
-                {
-                    case Networking.LobbyClient.LobbyChatTypes.Global:
-                        if (range.Text.Equals("[" + Program.LClient.strUserName + "]:"))
-                        {
-                            range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Blue));
-                            range.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
-                        }
-                        else
-                        {
-                            range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Black));
-                            range.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
-                        }
-                    break;
-                    case Networking.LobbyClient.LobbyChatTypes.Whisper:
-                            range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Orange));
-                            range.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Italic);
-                    break;
-                    case Networking.LobbyClient.LobbyChatTypes.System:
-                            range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Gray));
-                            range.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
-                    break;
-                    case Networking.LobbyClient.LobbyChatTypes.Error:
-                            range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Red));
-                            range.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
-                    break;
-                }
-            }
-            m_tags.Clear();
-            //SendMessage(rtbChat.Handle, WM_VSCROLL, SB_BOTTOM, 0);
-            rtbChat.ScrollToEnd();
-        }
-        new struct Tag
-        {
-            public TextPointer StartPosition;
-            public TextPointer EndPosition;
-            public string Word;
-            public Networking.LobbyClient.LobbyChatTypes Type;
-
-        }
-        List<Tag> m_tags = new List<Tag>();
-        void CheckWordsInRun(Run run)
-        {
-            string text = run.Text.Trim();
-            if (text.Equals(""))
-                return;
-            int sIndex = 0;
-                if (text[0] == '<')
-                {
-                    Tag t = new Tag();
-                    int s = 0;
-                    int e = text.IndexOf(':');
-                    t.StartPosition = run.ContentStart.GetPositionAtOffset(s, LogicalDirection.Forward);
-                    t.EndPosition = run.ContentStart.GetPositionAtOffset(e, LogicalDirection.Backward);
-                    t.Word = text.Substring(s,text.Length - e);
-                    t.Type = Networking.LobbyClient.LobbyChatTypes.Whisper;
-                    m_tags.Add(t);
-                    return;
-                }
-            String[] words = text.Split(new char[1]{' '});
-            for(int i=0;i<words.Length;i++)
-            {
-                string word = words[i];
-
-                for (int u = 0; u < Program.LClient.OnlineUsers.Count; u++)
-                {
-                    if (word.Equals("[" + Program.LClient.OnlineUsers[u].Username + "]:"))
-                    {
-                        Tag t = new Tag();
-                        int s = text.IndexOf(word,sIndex);
-                        sIndex = s + word.Length - 1;
-                        t.StartPosition = run.ContentStart.GetPositionAtOffset(s, LogicalDirection.Forward);
-                        t.EndPosition = run.ContentStart.GetPositionAtOffset(s + word.Length, LogicalDirection.Backward);
-                        t.Word = word;
-                        t.Type = Networking.LobbyClient.LobbyChatTypes.Global;
-                        m_tags.Add(t);
-                    }
-                    else if (word.Equals("[" + Program.LClient.OnlineUsers[u].Username + "]"))
-                    {
-                        Tag t = new Tag();
-                        int s = text.IndexOf(word, sIndex);
-                        sIndex = s + word.Length - 1;
-                        t.StartPosition = run.ContentStart.GetPositionAtOffset(s, LogicalDirection.Forward);
-                        t.EndPosition = run.ContentStart.GetPositionAtOffset(s + word.Length, LogicalDirection.Backward);
-                        t.Word = word;
-                        t.Type = Networking.LobbyClient.LobbyChatTypes.Global;
-                        m_tags.Add(t);
-                    }
-                    else if (word.Equals("!ERROR:"))
-                    {
-                        Tag t = new Tag();
-                        int s = text.IndexOf(word, sIndex);
-                        sIndex = s + word.Length - 1;
-                        t.StartPosition = run.ContentStart.GetPositionAtOffset(s, LogicalDirection.Forward);
-                        t.EndPosition = run.ContentStart.GetPositionAtOffset(s + word.Length, LogicalDirection.Backward);
-                        t.Word = word;
-                        t.Type = Networking.LobbyClient.LobbyChatTypes.Error;
-                        m_tags.Add(t);
-                    }
-                    else if (word.Equals("#SYSTEM:"))
-                    {
-                        Tag t = new Tag();
-                        int s = text.IndexOf(word, sIndex);
-                        sIndex = s + word.Length - 1;
-                        t.StartPosition = run.ContentStart.GetPositionAtOffset(s, LogicalDirection.Forward);
-                        t.EndPosition = run.ContentStart.GetPositionAtOffset(s + word.Length, LogicalDirection.Backward);
-                        t.Word = word;
-                        t.Type = Networking.LobbyClient.LobbyChatTypes.System;
-                        m_tags.Add(t);
-                    }
-                }    
-            }
         }
         private bool isOnlineUserName(String user)
         {
@@ -584,55 +473,59 @@ namespace Octgn.Launcher
             
         }
 
-        private void button4_Click(object sender, RoutedEventArgs e)
+        private Boolean SelectGame(String GUID)
         {
-            if (!Program.LClient.isHosting)
+            try
             {
-                Program.LClient.LastGameInfo = textBox1.Text;
-                if (Program.LClient.LastGameInfo.Trim().Equals(""))
+                //HostedGame hg = Program.LClient.HostedGames[ind];
+                for (int i = 0; i < Program.GamesRepository.Games.Count; i++)
                 {
-                    Program.LClient.LastGameInfo = ".";
+                    if (Program.GamesRepository.Games[i].Id.ToString().Equals(GUID))
+                    {
+                        if (Program.Game == null)
+                        {
+                            Program.Game = new Game(GameDef.FromO8G(Program.GamesRepository.Games[i].Filename));
+                        }
+                        else if (Program.Game.Definition.Id != Program.GamesRepository.Games[i].Id)
+                        {
+                            Program.Game = new Game(GameDef.FromO8G(Program.GamesRepository.Games[i].Filename));
+                        }
+                        return true;
+                    }
                 }
-                Program.lwMainWindow.NavigationService.Navigate(new LobbyHost(true));
-                Program.LClient.isHosting = true;
-            }
-        }
 
+
+            }
+            catch (Exception exe)
+            {
+
+            }
+            return false;
+            
+        }
         private void button3_Click(object sender, RoutedEventArgs e)
         {
             if (!Program.LClient.isHosting && !Program.LClient.isJoining)
             {
                 Program.LClient.isJoining = true;
                 int ind = dataGrid1.SelectedIndex;
-                try
+                HostedGame hg = Program.LClient.HostedGames[ind];
+                if(SelectGame(hg.getStrGUID()))
                 {
-                    HostedGame hg = Program.LClient.HostedGames[ind];
-                    for (int i = 0; i < Program.GamesRepository.Games.Count; i++)
-                    {
-                        if (Program.GamesRepository.Games[i].Id.ToString().Equals(hg.getStrGUID()))
-                        {
-                            if (Program.Game == null)
-                            {
-                                Program.Game = new Game(GameDef.FromO8G(Program.GamesRepository.Games[i].Filename));
-                            }
-                            else if (Program.Game.Definition.Id != Program.GamesRepository.Games[i].Id)
-                            {
-                                Program.Game = new Game(GameDef.FromO8G(Program.GamesRepository.Games[i].Filename));
-                            }
-                            change_join_text("Joining...");
                             intIpTried = 0;
                             port = hg.getIntPort();
                             ips = hg.getStrHost();
+                            IPAddress[] addresslist = Dns.GetHostAddresses(ips[0]);
+
+                            ips[0] = addresslist[0].ToString();
+
                             Join_Game(ips, hg.getIntPort());
-                            break;
-                        }
-                    }
-                    
-                    
                 }
-                catch (Exception exe)
+                else
                 {
-                    Program.LClient.isJoining = false;
+                    //change_join_text("Join");
+                    MessageBox.Show("You do not have the correct game installed.");
+                        Program.LClient.isJoining = false;
                 }
                 
                 
@@ -640,20 +533,16 @@ namespace Octgn.Launcher
         }
         private void Join_Game( String[] host, int port)
         {
-            if (Program.Game != null)
-            {
+                //change_join_text("Joining...");
                 Program.Client = new Networking.Client(IPAddress.Parse(host[intIpTried]), port);
                 Program.Client.BeginConnect(ConnectedCallback);
-            }
-            else
-                Program.LClient.isJoining = false;
         }
         
         private void ConnectedCallback(object sender, ConnectedEventArgs e)
         {
             if (e.exception == null)
             {
-                change_join_text("Join");
+                //change_join_text("Join");
                 Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, new NoArgsDelegate(LaunchGame));
             }
             else
@@ -663,8 +552,12 @@ namespace Octgn.Launcher
                 {
                     Program.LClient.isJoining = false;
                     MessageBox.Show("Unable to join server.");
-
-                    change_join_text("Join");
+                    if (Program.LClient.isHosting)
+                    {
+                        Program.LClient.isHosting = false;
+                        Program.LClient.unHost_Game();
+                    }
+                    //change_join_text("Join");
 
                 }
                 else
@@ -673,33 +566,57 @@ namespace Octgn.Launcher
                 }
             }
         }
-        private void change_join_text(String text)
-        {
-            System.Threading.Thread thread = new System.Threading.Thread
-            (
-                new System.Threading.ThreadStart
-                (
-                    delegate()
-                    {
-                        rtbChat.Dispatcher.Invoke
-                        (
-                            System.Windows.Threading.DispatcherPriority.Normal,
-                            new Action
-                            (
-                                delegate()
-                                {
-
-                                    button3.Content = text;
-                                }
-                            )
-                        );
-                    }
-                )
-            );
-            thread.Start();
-        }
         private void LaunchGame()
         { Program.lwMainWindow.NavigationService.Navigate(new StartGame(true)); }
+
+        private void btnHost_Click(object sender, RoutedEventArgs e)
+        {
+            if (Program.LClient.isHosting)
+            {
+                MessageBox.Show("Please stop hosting first.");
+            }
+            if (Program.LClient.isJoining)
+            {
+                MessageBox.Show("Please stop joining/playing a game first.");
+            }
+            if (!Program.LClient.isHosting && !Program.LClient.isJoining)
+            {
+                Program.LClient.isHosting = true;
+                if (String.IsNullOrEmpty(comboBox1.Text))
+                {
+                    MessageBox.Show("Pick a game.");
+                    Program.LClient.isHosting = false;
+                    return;
+                }
+                Program.Game = null;
+                foreach (Data.Game g in Program.GamesRepository.Games)
+                {
+                    if (g.Name.Equals(comboBox1.Text))
+                    {
+                        SelectGame(g.Id.ToString());
+                        break;
+                    }
+                }
+                if (Program.Game == null)
+                {
+                    Program.LClient.isHosting = false;
+                    return;
+                }
+                if (!Program.Game.Definition.CheckVersion())
+                {
+                    Program.LClient.isHosting = false;
+                    return;
+                }
+
+                Program.LClient.LastGameInfo = textBox1.Text;
+                if (Program.LClient.LastGameInfo.Trim().Equals(""))
+                {
+                    Program.LClient.LastGameInfo = ".";
+                }
+                Program.LClient.Host_Game(Program.Game.Definition);
+                
+            }
+        }
 
     }
 }
