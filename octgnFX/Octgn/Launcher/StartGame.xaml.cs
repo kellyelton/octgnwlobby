@@ -26,14 +26,23 @@ namespace Octgn.Launcher
 			}
 			else
 			{
-                if (!Program.LClient.isHosting)
-                {				
-                    descriptionLabel.Text = "The following players have joined the game.\nPlease wait until the game starts, or click 'Cancel' to leave this game.";
-				    startBtn.Visibility = Visibility.Collapsed;
-				    options.IsEnabled = playersList.IsEnabled = false;
+                if (Program.LClient != null)
+                {
+                    if (!Program.LClient.isHosting)
+                    {
+                        descriptionLabel.Text = "The following players have joined the game.\nPlease wait until the game starts, or click 'Cancel' to leave this game.";
+                        startBtn.Visibility = Visibility.Collapsed;
+                        options.IsEnabled = playersList.IsEnabled = false;
+                    }
+                    else
+                        descriptionLabel.Text = "The following players have joined your game.\nClick 'Start' when everyone has joined. No one will be able to join once the game has started.";
                 }
                 else
-                    descriptionLabel.Text = "The following players have joined your game.\nClick 'Start' when everyone has joined. No one will be able to join once the game has started.";
+                {
+                    descriptionLabel.Text = "The following players have joined the game.\nPlease wait until the game starts, or click 'Cancel' to leave this game.";
+                    startBtn.Visibility = Visibility.Collapsed;
+                    options.IsEnabled = playersList.IsEnabled = false;
+                }
 			}
 
 

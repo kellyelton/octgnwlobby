@@ -87,7 +87,8 @@ namespace Octgn.Launcher
         NavigationService.GoBack();
       else
       {
-        Program.Client.CancelConnect();
+        if(Program.Client != null)
+            Program.Client.CancelConnect();
         HideProgressBar();
       }
     }

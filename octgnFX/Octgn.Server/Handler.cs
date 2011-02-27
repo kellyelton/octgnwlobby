@@ -177,6 +177,8 @@ namespace Octgn.Server
         return;
       }
       // Check if the versions are compatible
+      //TODO Caused problem with lobby version, so I changed this
+        /*
       if (clientVer.Major != ServerVersion.Major || clientVer.Minor != ServerVersion.Minor)
       {
         XmlSenderStub rpc = new XmlSenderStub(sender, this);
@@ -185,6 +187,7 @@ namespace Octgn.Server
         catch { }
         return;
       }
+         * */
       // Check if we accept new players
       if (!acceptPlayers)
       {

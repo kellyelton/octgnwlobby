@@ -78,12 +78,12 @@ namespace Octgn.Launcher
             Program.Client = new Networking.Client(isIPv6 ? IPAddress.IPv6Loopback : IPAddress.Loopback, int.Parse(portBox.Text));
             Program.Client.Connect();
             // Show the start game window
-            
+
             if (Program.LClient != null)
             {
                 if (Program.LClient.Connected && isLobbyGame)
                 {
-                   // Program.LClient.Host_Game(isIPv6 ? ipList.Items[0].ToString() : ipv4List.Items[0].ToString(), port, Program.Game.Definition);
+                    // Program.LClient.Host_Game(isIPv6 ? ipList.Items[0].ToString() : ipv4List.Items[0].ToString(), port, Program.Game.Definition);
                     NavigationService.Navigate(new StartGame(true));
                 }
                 else
@@ -91,6 +91,10 @@ namespace Octgn.Launcher
                     NavigationService.Navigate(new StartGame(false));
                 }
 
+            }
+            else
+            {
+                NavigationService.Navigate(new StartGame(false));
             }
 		}
 
