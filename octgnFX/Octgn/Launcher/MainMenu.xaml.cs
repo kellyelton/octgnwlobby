@@ -49,14 +49,17 @@ namespace Octgn.Launcher
                 Application.Current.MainWindow.Close();
                 Application.Current.Shutdown(0);
             }
-            else if (Program.lwLobbyWindow.IsVisible == false)
-            {
-                Program.lwLobbyWindow = new LauncherWindow();
-                Program.lwLobbyWindow.Show();
-                Program.lwLobbyWindow.Navigate(new ServerConnect());
-            }
             else
-                MessageBox.Show("You must exit the lobby system first.");
+            {
+                if (Program.lwLobbyWindow.IsVisible == false)
+                {
+                    Program.lwLobbyWindow = new LauncherWindow();
+                    Program.lwLobbyWindow.Show();
+                    Program.lwLobbyWindow.Navigate(new ServerConnect());
+                }
+                else
+                    MessageBox.Show("You must exit the lobby system first.");
+            }
         }
 
 		#region Hint texts

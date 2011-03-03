@@ -35,7 +35,10 @@ namespace Octgn.Launcher
                         options.IsEnabled = playersList.IsEnabled = false;
                     }
                     else
+                    {
                         descriptionLabel.Text = "The following players have joined your game.\nClick 'Start' when everyone has joined. No one will be able to join once the game has started.";
+                        
+                    }
                 }
                 else
                 {
@@ -50,8 +53,10 @@ namespace Octgn.Launcher
             {
                 Program.Dispatcher = this.Dispatcher;
                 Program.ServerError += HandshakeError;
-                if (Program.IsHost)
-                    Program.GameSettings.PropertyChanged += SettingsChanged;
+
+                    if (Program.IsHost)
+                        Program.GameSettings.PropertyChanged += SettingsChanged;
+
                 // Fix: defer the call to Program.Game.Begin(), so that the trace has 
                 // time to connect to the ChatControl (done inside ChatControl.Loaded).
                 // Otherwise, messages notifying a disconnection may be lost

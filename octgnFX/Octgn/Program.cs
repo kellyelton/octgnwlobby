@@ -30,7 +30,26 @@ namespace Octgn
         public static Launcher.LauncherWindow lwMainWindow;
 		internal static event EventHandler<ServerErrorEventArgs> ServerError;
 
-    internal static bool IsHost { get { return Server != null; } }
+        //TODO Changed this for lobby
+        internal static bool IsHost {
+        get 
+        {
+            if (Server == null)
+            {
+                if (LClient != null)
+                {
+                    if (LClient.isHosting)
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                    return false;
+            }
+            else
+                return true;
+        } 
+    }
 
 		internal static Dispatcher Dispatcher;
 		

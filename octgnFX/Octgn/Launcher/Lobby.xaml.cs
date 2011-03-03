@@ -534,8 +534,15 @@ namespace Octgn.Launcher
         private void Join_Game( String[] host, int port)
         {
                 //change_join_text("Joining...");
+            try
+            {
                 Program.Client = new Networking.Client(IPAddress.Parse(host[intIpTried]), port);
                 Program.Client.BeginConnect(ConnectedCallback);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                ConnectedCallback(this, new ConnectedEventArgs(e));
+            }
         }
         
         private void ConnectedCallback(object sender, ConnectedEventArgs e)
@@ -548,7 +555,7 @@ namespace Octgn.Launcher
             else
             {
                 intIpTried++;
-                if (intIpTried == ips.Length)
+                if (intIpTried >= ips.Length)
                 {
                     Program.LClient.isJoining = false;
                     MessageBox.Show("Unable to join server.");
