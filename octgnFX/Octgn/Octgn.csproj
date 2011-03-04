@@ -37,15 +37,15 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://localhost/OCTGNwLobby/</InstallUrl>
-    <UpdateUrl>http://localhost/OCTGNwLobby/</UpdateUrl>
+    <InstallUrl>http://www.skylabsonline.com/octgndownload/</InstallUrl>
+    <UpdateUrl>http://www.skylabsonline.com/octgndownload/</UpdateUrl>
     <ProductName>OCTGNwLobby</ProductName>
     <PublisherName>OCTGNwLobby</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>44</ApplicationRevision>
-    <ApplicationVersion>1.0.0.44</ApplicationVersion>
+    <ApplicationRevision>48</ApplicationRevision>
+    <ApplicationVersion>1.0.0.48</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

@@ -368,6 +368,7 @@ namespace Octgn.Launcher
             //Program.LClient.Chat(new TextRange(rtbMess.Document.ContentStart, rtbMess.Document.ContentEnd).Text);
             Program.LClient.Chat(tbMess.Text);
             tbMess.Text = "";
+            intMessHistoryIndex = 0;
            // rtbChat.re
         }
         private void Update_Online_Users()
@@ -414,36 +415,39 @@ namespace Octgn.Launcher
                     if(!temp.Equals(""))
                         lsMessageHistory.Add(temp);
                     tbMess.Text = "";
+                    intMessHistoryIndex = 0;
+
                 }
             }
-            else if (e.Key == Key.Up)
+            else if (e.Key == Key.Down)
             {
                 intMessHistoryIndex++;
                 if (intMessHistoryIndex >= lsMessageHistory.Count)
                     intMessHistoryIndex = 0;
-                try
-                {
-                    tbMess.Text = lsMessageHistory[intMessHistoryIndex];
-                }
-                catch (Exception ex)
-                {
-                    tbMess.Text = "";
-                }
+                    try
+                    {
+                        tbMess.Text = lsMessageHistory[intMessHistoryIndex];
+                    }
+                    catch (Exception ex)
+                    {
+                        tbMess.Text = "";
+                    }
 
             }
-            else if (e.Key == Key.Down)
+            else if (e.Key == Key.Up)
             {
                 intMessHistoryIndex--;
                 if (intMessHistoryIndex <= 0)
                     intMessHistoryIndex = lsMessageHistory.Count - 1;
-                try
-                {
-                    tbMess.Text = lsMessageHistory[intMessHistoryIndex];
-                }
-                catch (Exception ex)
-                {
-                    tbMess.Text = "";
-                }
+
+                    try
+                    {
+                        tbMess.Text = lsMessageHistory[intMessHistoryIndex];
+                    }
+                    catch (Exception ex)
+                    {
+                        tbMess.Text = "";
+                    }
             }
         }
         private void Leave_Lobby()

@@ -315,7 +315,8 @@ namespace Octgn.Networking
                             try
                             {
                                 String[] s = args[0].Split(new char[1] { ':' });
-                                strLastWhisperFrom = s[0];
+                                if(s[0] != strUserName)
+                                    strLastWhisperFrom = s[0];
                                 eLobbyChat.Invoke(LobbyChatTypes.Whisper, (String)args[0], (String)args[1]);
                             }
                             catch (Exception e) { };
