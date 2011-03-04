@@ -24,29 +24,25 @@ namespace Octgn.Networking
         public delegate void UserDelegate(User user, bool Connected);
         public delegate void LobbyChatDelegate(LobbyChatTypes type,String user, String chat);
         private delegate void NoArgsDelegate();
-        private bool loggedIn = false;
-        private string strLastWhisperFrom = "";
+        private bool loggedIn ;
+        private string strLastWhisperFrom;
         public event UserDelegate eUserEvent;
         public event ConnectionDelegate eLogEvent;
         public event LobbyChatDelegate eLobbyChat;
         public event GameHostDelegate eGameHost;
         public event ErrorDelegate eError;
         public List<User> OnlineUsers;
-        public String strUserName = "";
+        public String strUserName;
         public Boolean isHosting { get; set; }
         public Boolean isJoining { get; set; }
         public String LastGameInfo { get; set; }
         //public HostedGameBox HostedGames = new HostedGameBox();
-        public ObservableCollection<HostedGame> HostedGames = new ObservableCollection<HostedGame>();
+        public ObservableCollection<HostedGame> HostedGames;
         public enum LobbyChatTypes { Global,Whisper,System, Error};
         public LobbyClient(String host, Int32 port)
         {
             strHost = host;
             intPort = port;
-            OnlineUsers = new List<User>(0);
-            regEvents();
-            isHosting = false;
-            LastGameInfo = "";
         }
         private void regEvents()
         {
@@ -63,7 +59,7 @@ namespace Octgn.Networking
         void lwMainWindow_Closed(object sender, EventArgs e)
         {
 
-            Program.lwLobbyWindow.Close();
+            //Program.lwLobbyWindow.Close();
         }
 
         void lwLobbyWindow_Closed(object sender, EventArgs e)
@@ -77,6 +73,14 @@ namespace Octgn.Networking
         //
         public void Start()
         {
+            OnlineUsers = new List<User>(0);
+            regEvents();
+            isHosting = false;
+            LastGameInfo = "";
+            strUserName = "";
+            strLastWhisperFrom = "";
+            loggedIn = false;
+            HostedGames = new ObservableCollection<HostedGame>();
             this.Connect(strHost, intPort);
         }
         public void Login(String email, String password)
@@ -125,12 +129,28 @@ namespace Octgn.Networking
                 return text;
             try
             {
-                if (text.ToLower().Substring(0, 3).Equals("/r "))
+                String[] words = text.Split(new char[1] { ' ' },StringSplitOptions.RemoveEmptyEntries);
+                switch(words[0].ToLower())
                 {
-                    if (strLastWhisperFrom.Equals(""))
-                        return "";
-                    else
-                        text = "/w " + strLastWhisperFrom + " " + text.Substring(3);
+                    case "/reconnect":
+                        if(!Connected)
+                            Start();
+                    return "";
+                    case "/r":
+                        if (strLastWhisperFrom.Equals(""))
+                            return "";
+                        else
+                            text = "/w " + strLastWhisperFrom + " " + text.Substring(3);
+                    break;
+                    case "/login":
+                        if(Connected && !loggedIn)
+                        {
+                            if(words.Length == 3)
+                            {
+                                Login(words[1],words[2]);
+                            }
+                        }
+                    return "";
                 }
             }
             catch (ArgumentOutOfRangeException ae)
@@ -273,8 +293,10 @@ namespace Octgn.Networking
                                 {
                                     if (OnlineUsers[i].Email.Equals(up[0]))
                                     {
-                                        eUserEvent.Invoke(OnlineUsers[i], false);
+                                        User temp = OnlineUsers[i];
                                         OnlineUsers.RemoveAt(i);
+                                        eUserEvent.Invoke(temp, false);
+                                        
                                         break;
                                     }
                                 }
@@ -399,6 +421,7 @@ namespace Octgn.Networking
         {
             try
             {
+                loggedIn = false;
                 eLogEvent.Invoke("DC");
 
             }

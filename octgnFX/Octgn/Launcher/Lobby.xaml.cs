@@ -158,9 +158,13 @@ namespace Octgn.Launcher
                                 {
                                     if (ConEvent.Equals("DC"))
                                     {
-                                        LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", "Disconnected from server!");
+                                        LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", "Disconnected from server! /reconnect to reconnect. /login email password to log back in.");
                                         //Leave_Lobby();
 
+                                    }
+                                    else if (ConEvent.Equals("CON"))
+                                    {
+                                        LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", "Connected to server!");
                                     }
                                 }
                             )
@@ -235,11 +239,24 @@ namespace Octgn.Launcher
                                 if (user.Equals(Program.LClient.strUserName))
                                     b = Brushes.Blue;
                                 r.Foreground = b;
+                                r.ToolTip = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
+                                r.Cursor = Cursors.Hand;
+                                r.Background = Brushes.White;
+                                r.MouseEnter += delegate(object sender, MouseEventArgs e)
+                                {
+                                    r.Background = new RadialGradientBrush(Colors.DarkGray, Colors.WhiteSmoke);
+                                    
+                                };
+                                r.MouseLeave += delegate(object sender, MouseEventArgs e)
+                                {
+                                    r.Background = Brushes.White;
+                                };
                                 p.Inlines.Add(new Bold(r));
                             break;
                             case Networking.LobbyClient.LobbyChatTypes.System:
                                 r = new Run("#" + user + ": ");
                                 b = Brushes.Red;
+                                r.ToolTip = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
                                 r.Foreground = b;
                                 p.Inlines.Add(new Bold(r));
 
@@ -247,12 +264,14 @@ namespace Octgn.Launcher
                             case Networking.LobbyClient.LobbyChatTypes.Whisper:
                                 String[] w = user.Split(new char[1] { ':' });
                                 r = new Run("<" + w[0] + ">" +  w[1] + ": ");
+                                r.ToolTip = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
                                 b = Brushes.Orange;
                                 r.Foreground = b;
                                 p.Inlines.Add(new Italic(r));
                             break;
                             case Networking.LobbyClient.LobbyChatTypes.Error:
                                  r = new Run("!" + user + ": ");
+                                 r.ToolTip = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
                                 b = Brushes.Red;
                                 r.Foreground = b;
                                 p.Inlines.Add(new Bold(r));
@@ -262,6 +281,7 @@ namespace Octgn.Launcher
                         foreach (String word in words)
                         {
                             Inline inn = StringToRun(word, type);
+                            
                             if (inn != null)
                                 p.Inlines.Add(inn);
                             p.Inlines.Add(new Run(" "));
