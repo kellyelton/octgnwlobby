@@ -189,9 +189,6 @@
     </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="BigInteger.cs" />
-    <Compile Include="Launcher\LobbyHost.xaml.cs">
-      <DependentUpon>LobbyHost.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Launcher\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -503,10 +500,6 @@
     <Page Include="ErrorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Launcher\LobbyHost.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -837,6 +830,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Effects\" />
+    <Folder Include="Lobby\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
