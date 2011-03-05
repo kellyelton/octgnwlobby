@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octgn.Server", "..\Octgn.Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octgn.Data", "..\Octgn.Data\Octgn.Data.csproj", "{6C6E53BA-E75B-4E93-98CA-3C39ED908B2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetShit", "..\..\..\..\..\NetShit\trunk\NetShit.csproj", "{B637235E-7CC5-4600-BA00-46F5FACD2DE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetShit", "..\..\..\..\NetShit\trunk\NetShit.csproj", "{B637235E-7CC5-4600-BA00-46F5FACD2DE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

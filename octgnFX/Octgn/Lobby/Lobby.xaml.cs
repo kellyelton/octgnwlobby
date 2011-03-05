@@ -76,6 +76,8 @@ namespace Octgn.Lobby
                 Program.LClient.eUserStatusChanged += new LobbyClient.UserStatusChangedDelegate(LClient_eUserStatusChanged);
                 Program.lwLobbyWindow.Activated += delegate(object sender, EventArgs e)
                 {
+                    if (Program.lwLobbyWindow.TaskbarItemInfo == null)
+                        Program.lwLobbyWindow.TaskbarItemInfo = new TaskbarItemInfo();
                     if (Program.lwLobbyWindow.TaskbarItemInfo.ProgressState == TaskbarItemProgressState.Indeterminate)
                         Program.lwLobbyWindow.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.None;
                 };
