@@ -130,5 +130,17 @@ namespace Octgn.Properties {
                 this["LobbySound"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.0.1.10")]
+        public string currevision {
+            get {
+                return ((string)(this["currevision"]));
+            }
+            set {
+                this["currevision"] = value;
+            }
+        }
     }
 }

@@ -458,14 +458,34 @@ namespace Octgn.Lobby
                                 p.Inlines.Add(new Bold(r));
                             break;
                         }
-                        String[] words = chat.Split(new char[1] { ' ' });
-                        foreach (String word in words)
+                        if (chat.Contains("\n"))
                         {
-                            Inline inn = StringToRun(word, type);
-                            
-                            if (inn != null)
-                                p.Inlines.Add(inn);
-                            p.Inlines.Add(new Run(" "));
+                            String[] lines = chat.Split(new char[1] { '\n' });
+                            foreach (String line in lines)
+                            {
+                                String[] words = line.Split(new char[1] { ' ' });
+                                foreach (String word in words)
+                                {
+                                    Inline inn = StringToRun(word, type);
+
+                                    if (inn != null)
+                                        p.Inlines.Add(inn);
+                                    p.Inlines.Add(new Run(" "));
+                                }
+                                p.Inlines.Add(new Run("\n"));
+                            }
+                        }
+                        else
+                        {
+                            String[] words = chat.Split(new char[1] { ' ' });
+                            foreach (String word in words)
+                            {
+                                Inline inn = StringToRun(word, type);
+
+                                if (inn != null)
+                                    p.Inlines.Add(inn);
+                                p.Inlines.Add(new Run(" "));
+                            }
                         }
                         rtbChat.Document.Blocks.Add(p);
                         rtbChat.ScrollToEnd();

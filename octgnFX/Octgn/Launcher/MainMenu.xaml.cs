@@ -15,7 +15,7 @@ namespace Octgn.Launcher
 		{
 			InitializeComponent();
 			versionText.Text = string.Format("Version {0}", OctgnApp.OctgnVersion.ToString(4));
-            tbRelease.Text = "Release 1.0.1.9";
+            tbRelease.Text = "Release " + Octgn.Properties.Settings.Default.currevision;
 
 		}
 

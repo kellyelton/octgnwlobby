@@ -84,6 +84,7 @@ namespace Octgn.Lobby
             loggedIn = false;
             lastMessageSent = DateTime.Now;
             HostedGames = new ObservableCollection<HostedGame>();
+            Status = PlayerStatus.Available;
             this.Connect(strHost, intPort);
         }
         public void Login(String email, String password)
@@ -114,6 +115,7 @@ namespace Octgn.Lobby
             SocketMessage sm = new SocketMessage("LOG");
             sm.Arguments.Add(email);
             sm.Arguments.Add(pass);
+            sm.Arguments.Add(Settings.Default.currevision);
             this.writeMessage(sm);
         }
         public void Register(String email, String username, String password)
@@ -128,6 +130,10 @@ namespace Octgn.Lobby
         {
             SocketMessage sm = new SocketMessage("LOBCHAT");
             text = text.Trim();
+            for (int b = 0; b <= 6; b++)
+            {
+                text.Replace((char)b, (char)0);
+            }
             if (!isHosting && !isJoining && Status != PlayerStatus.Available)
             {
                 if (Status != PlayerStatus.Hosting)
