@@ -133,7 +133,7 @@ namespace Octgn.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.0.1.10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.0.1.11")]
         public string currevision {
             get {
                 return ((string)(this["currevision"]));

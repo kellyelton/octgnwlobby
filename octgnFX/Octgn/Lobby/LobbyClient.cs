@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net.Sockets;
-using System.Net;
-using System.Threading;
-using System.Windows;
-using System.Security.Cryptography;
-using System.Collections;
-using System.Windows.Navigation;
-using System.Windows.Threading;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows;
 using Octgn.Properties;
 using Skylabs.NetShit;
 
@@ -20,6 +13,7 @@ namespace Octgn.Lobby
     {
         Hosting, Playing, Away, Available
     };
+
     public class LobbyClient : ShitSock
     {
         public delegate void ConnectionDelegate(String ConEvent);
@@ -41,34 +35,43 @@ namespace Octgn.Lobby
         public event UserStatusChangedDelegate eUserStatusChanged;
         public List<User> OnlineUsers;
         public String strUserName;
+
         public Boolean isHosting { get; set; }
+
         public Boolean isJoining { get; set; }
+
         public String LastGameInfo { get; set; }
+
         public PlayerStatus Status { get; set; }
+
         //public HostedGameBox HostedGames = new HostedGameBox();
         public ObservableCollection<HostedGame> HostedGames;
+
         public enum LobbyChatTypes { Global, Whisper, System, Error };
+
         public LobbyClient(String host, Int32 port)
         {
             strHost = host;
             intPort = port;
         }
+
         private void regEvents()
         {
             //Program.lwMainWindow.Closed += new EventHandler(lwMainWindow_Closed);
             Program.lwLobbyWindow.Closed += new EventHandler(lwLobbyWindow_Closed);
         }
+
         private void unregEvents()
         {
             if (Program.lwLobbyWindow != null)
                 Program.lwLobbyWindow.Closed -= lwLobbyWindow_Closed;
         }
 
-        void lwLobbyWindow_Closed(object sender, EventArgs e)
+        private void lwLobbyWindow_Closed(object sender, EventArgs e)
         {
             this.Close("Lobby Closed.", true);
-
         }
+
         //
         // Summary:
         //     Connects to the server and starts the run() loop.
@@ -87,6 +90,7 @@ namespace Octgn.Lobby
             Status = PlayerStatus.Available;
             this.Connect(strHost, intPort);
         }
+
         public void Login(String email, String password)
         {
             Encoding enc = Encoding.ASCII;
@@ -98,7 +102,6 @@ namespace Octgn.Lobby
             }
             catch (Exception e)
             {
-
             }
             SHA1CryptoServiceProvider cryptoTransformSHA1 = new SHA1CryptoServiceProvider();
 
@@ -108,16 +111,19 @@ namespace Octgn.Lobby
             }
             catch (Exception e)
             {
-
             }
             cryptoTransformSHA1.Dispose();
-            pass = pass.ToLower();
-            SocketMessage sm = new SocketMessage("LOG");
-            sm.Arguments.Add(email);
-            sm.Arguments.Add(pass);
-            sm.Arguments.Add(Settings.Default.currevision);
-            this.writeMessage(sm);
+            if (pass != null)
+            {
+                pass = pass.ToLower();
+                SocketMessage sm = new SocketMessage("LOG");
+                sm.Arguments.Add(email);
+                sm.Arguments.Add(pass);
+                sm.Arguments.Add(Settings.Default.currevision);
+                this.writeMessage(sm);
+            }
         }
+
         public void Register(String email, String username, String password)
         {
             SocketMessage sm = new SocketMessage("REG");
@@ -126,6 +132,7 @@ namespace Octgn.Lobby
             sm.Arguments.Add(password);
             this.writeMessage(sm);
         }
+
         public String Chat(String text)
         {
             SocketMessage sm = new SocketMessage("LOBCHAT");
@@ -142,7 +149,7 @@ namespace Octgn.Lobby
                 }
                 lastMessageSent = DateTime.Now;
             }
-                
+
             if (text.Length == 0)
                 return text;
             try
@@ -182,7 +189,6 @@ namespace Octgn.Lobby
             }
             catch (ArgumentOutOfRangeException ae)
             {
-
             }
             catch (Exception e)
             {
@@ -202,8 +208,8 @@ namespace Octgn.Lobby
             sm.Arguments.Add(LastGameInfo);
             this.isHosting = true;
             writeMessage(sm);
-
         }
+
         public void unHost_Game()
         {
             SocketMessage sm = new SocketMessage("UNHOST");
@@ -224,7 +230,6 @@ namespace Octgn.Lobby
         {
             try
             {
-
                 eError.Invoke(error);
             }
             catch (Exception e) { }
@@ -249,7 +254,6 @@ namespace Octgn.Lobby
                     }
                     catch (Exception e)
                     {
-
                     }
                     eLogEvent.Invoke("LSUCC");
                     break;
@@ -350,7 +354,6 @@ namespace Octgn.Lobby
                                 }
                                 catch (Exception e)
                                 {
-
                                     break;
                                 }
                                 break;
@@ -364,7 +367,7 @@ namespace Octgn.Lobby
                                         up = a.Split(new char[1] { ':' });
                                         if (up.Length == 2)
                                             OnlineUsers.Add(new User(up[0], up[1]));
-                                        else if(up.Length == 3)
+                                        else if (up.Length == 3)
                                             OnlineUsers.Add(new User(up[0], up[1], (PlayerStatus)Enum.Parse(typeof(PlayerStatus), up[2], true)));
                                     }
                                     eUserEvent.Invoke(new User("", ""), true);
@@ -423,7 +426,6 @@ namespace Octgn.Lobby
                                         break;
                                     }
                                 }
-                                
 
                                 break;
                             case "HOST":
@@ -474,8 +476,8 @@ namespace Octgn.Lobby
                     }
                     break;
             }
-
         }
+
         override
         public void handleConnect(String host, Int32 port)
         {
@@ -485,6 +487,7 @@ namespace Octgn.Lobby
             }
             catch (Exception e) { };
         }
+
         override
         public void handleDisconnect(String reason, String host, int port)
         {
@@ -492,28 +495,32 @@ namespace Octgn.Lobby
             {
                 loggedIn = false;
                 eLogEvent.Invoke("DC");
-
             }
             catch (Exception e) { }
             unregEvents();
         }
+
         public class User
         {
             public String Email;
             public String Username;
+
             public PlayerStatus Status { get; set; }
+
             public User()
             {
                 Email = "";
                 Username = "";
                 Status = PlayerStatus.Available;
             }
+
             public User(String email, String username)
             {
                 Email = email;
                 Username = username;
                 Status = PlayerStatus.Available;
             }
+
             public User(String email, String username, PlayerStatus status)
             {
                 Email = email;
@@ -521,6 +528,5 @@ namespace Octgn.Lobby
                 Status = status;
             }
         }
-
     }
 }
