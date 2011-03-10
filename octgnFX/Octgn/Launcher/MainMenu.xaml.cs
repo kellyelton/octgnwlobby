@@ -1,35 +1,31 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Reflection;
 
 namespace Octgn.Launcher
 {
-	public sealed partial class MainMenu : Page
-	{
-        private DeckBuilder.DeckBuilderWindow lwDeck;
+    public sealed partial class MainMenu : Page
+    {
         private Boolean canOpenDeckEditor = true;
-		public MainMenu()
-		{
-			InitializeComponent();
-			versionText.Text = string.Format("Version {0}", OctgnApp.OctgnVersion.ToString(4));
+
+        public MainMenu()
+        {
+            InitializeComponent();
+            versionText.Text = string.Format("Version {0}", OctgnApp.OctgnVersion.ToString(4));
             tbRelease.Text = "Release " + Octgn.Properties.Settings.Default.currevision;
+        }
 
-		}
+        private void StartGame(object sender, RoutedEventArgs e)
+        { NavigationService.Navigate(new Serve()); }
 
-		private void StartGame(object sender, RoutedEventArgs e)
-		{ NavigationService.Navigate(new Serve()); }
+        private void JoinGame(object sender, RoutedEventArgs e)
+        { NavigationService.Navigate(new Join()); }
 
-		private void JoinGame(object sender, RoutedEventArgs e)
-		{ NavigationService.Navigate(new Join()); }
+        private void ManageGames(object sender, RoutedEventArgs e)
+        { if (canOpenDeckEditor)NavigationService.Navigate(new GameManager()); }
 
-		private void ManageGames(object sender, RoutedEventArgs e)
-		{ if(canOpenDeckEditor)NavigationService.Navigate(new GameManager()); }
-
-		private void EditDecks(object sender, RoutedEventArgs e)
-		{
+        private void EditDecks(object sender, RoutedEventArgs e)
+        {
             if (canOpenDeckEditor)
             {
                 if (Program.GamesRepository.Games.Count == 0)
@@ -38,22 +34,23 @@ namespace Octgn.Launcher
                     return;
                 }
                 canOpenDeckEditor = false;
-                var launcherWnd = Application.Current.MainWindow;
-                lwDeck = new DeckBuilder.DeckBuilderWindow();
-                lwDeck.Show();
-                lwDeck.Closing += new System.ComponentModel.CancelEventHandler(lwDeck_Closing);
+                Program.lwDeck = new DeckBuilder.DeckBuilderWindow();
+                Program.lwDeck.Show();
+                Program.lwDeck.Closing += new System.ComponentModel.CancelEventHandler(lwDeck_Closing);
+                Program.lwMainWindow.Hide();
 
-                //Application.Current.MainWindow = deckWnd;
+                Application.Current.MainWindow = Program.lwDeck;
+
                 //launcherWnd.Close();
             }
-		}
+        }
 
-        void lwDeck_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void lwDeck_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             canOpenDeckEditor = true;
         }
 
-		private void QuitClicked(object sender, RoutedEventArgs e)
+        private void QuitClicked(object sender, RoutedEventArgs e)
         {
             if (Program.lwLobbyWindow == null)
             {
@@ -73,18 +70,18 @@ namespace Octgn.Launcher
             }
         }
 
-		#region Hint texts
+        #region Hint texts
 
-		private void EnterBtn(object sender, RoutedEventArgs e)
-		{
-			Button btn = (Button)sender;
-			hintText.Text = (string)btn.Tag;
-		}
+        private void EnterBtn(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            hintText.Text = (string)btn.Tag;
+        }
 
-		private void LeaveBtn(object sender, RoutedEventArgs e)
-		{ hintText.Text = ""; }
+        private void LeaveBtn(object sender, RoutedEventArgs e)
+        { hintText.Text = ""; }
 
-		#endregion
+        #endregion Hint texts
 
         private void LobbyClicked(object sender, RoutedEventArgs e)
         {
@@ -101,5 +98,5 @@ namespace Octgn.Launcher
                 Program.lwLobbyWindow.Navigate(new Octgn.Lobby.ServerConnect());
             }
         }
-	}
+    }
 }
