@@ -436,8 +436,13 @@ namespace Octgn.Lobby
                         {
                             case LobbyClient.LobbyChatTypes.Global:
                                 r = getUserRun(user, "[" + user + "]: ");
-                                if (user.Substring(0, 5).ToLower().Equals("<irc>"))
-                                    b = System.Windows.Media.Brushes.DarkGray;
+                                if (user.Length > 5)
+                                {
+                                    if (user.Substring(0, 5).ToLower().Equals("<irc>"))
+                                        b = System.Windows.Media.Brushes.DarkGray;
+                                    else
+                                        b = System.Windows.Media.Brushes.Black;
+                                }
                                 else
                                     b = System.Windows.Media.Brushes.Black;
                                 if (user.Equals(Program.LClient.strUserName))
@@ -780,8 +785,10 @@ namespace Octgn.Lobby
                     Application.Current.MainWindow.Close();
                 else if ((Application.Current.MainWindow as DeckBuilder.DeckBuilderWindow) != null)
                     Application.Current.MainWindow.Close();
-                Program.LClient.isJoining = true;
                 int ind = dataGrid1.SelectedIndex;
+                if (ind < 0)
+                    return;
+                Program.LClient.isJoining = true;
                 HostedGame hg = Program.LClient.HostedGames[ind];
                 if (SelectGame(hg.getStrGUID()))
                 {
