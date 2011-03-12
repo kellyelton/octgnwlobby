@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using Octgn.Lobby;
 
 namespace Octgn.Launcher
 {
@@ -85,6 +86,7 @@ namespace Octgn.Launcher
 
         private void LobbyClicked(object sender, RoutedEventArgs e)
         {
+            ErrorLog.CheckandUpload();
             if (Program.lwLobbyWindow == null)
             {
                 Program.lwLobbyWindow = new Octgn.Lobby.LobbyWindow();

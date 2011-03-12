@@ -230,6 +230,7 @@ namespace Octgn.Lobby
         {
             try
             {
+                ErrorLog.WriteError(ex, error, false);
                 eError.Invoke(error);
             }
             catch (Exception e) { }

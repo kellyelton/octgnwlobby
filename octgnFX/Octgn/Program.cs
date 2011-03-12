@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
+using Octgn.Lobby;
 using Octgn.Play;
 
 namespace Octgn
@@ -76,6 +77,7 @@ namespace Octgn
         {
             BasePath = Path.GetDirectoryName(typeof(Program).Assembly.Location) + '\\';
             GamesPath = BasePath + @"Games\";
+            ErrorLog.CheckandUpload();
         }
 
         public static void StopGame()
