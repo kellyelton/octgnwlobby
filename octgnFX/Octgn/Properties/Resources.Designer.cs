@@ -156,5 +156,11 @@ namespace Octgn.Properties {
                 return ResourceManager.GetString("PythonAPI", resourceCulture);
             }
         }
+        
+        public static System.IO.UnmanagedMemoryStream whisper {
+            get {
+                return ResourceManager.GetStream("whisper", resourceCulture);
+            }
+        }
     }
 }

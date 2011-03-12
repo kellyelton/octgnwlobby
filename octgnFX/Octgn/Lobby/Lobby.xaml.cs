@@ -517,7 +517,7 @@ namespace Octgn.Lobby
                         {
                             rtbChat.ScrollToEnd();
                         }
-                        if (Settings.Default.LobbySound)
+                        if (Settings.Default.LobbySound && !Program.lwLobbyWindow.IsActive)
                         {
                             System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Properties.Resources.click);
                             sp.Play();

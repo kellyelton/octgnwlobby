@@ -44,8 +44,8 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>11</ApplicationRevision>
-    <ApplicationVersion>1.0.1.11</ApplicationVersion>
+    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationVersion>1.0.1.12</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -440,7 +440,6 @@
     <Resource Include="Resources\Icons\Reset.png" />
     <Resource Include="Resources\Icons\Ok.png" />
     <Resource Include="Resources\Icons\Save.png" />
-    <EmbeddedResource Include="Resources\click.wav" />
     <None Include="Resources\audio.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -453,6 +452,11 @@
     <Resource Include="Images\audiomute.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <None Include="Resources\click.mp3" />
+    <None Include="Resources\whisper.mp3" />
+    <None Include="Resources\logon.mp3" />
+    <None Include="Resources\whisper.wav" />
+    <None Include="Resources\click.wav" />
     <None Include="Resources\logoff.wav" />
     <None Include="Resources\logon.wav" />
     <Content Include="Scripting\Lib\abc.py">

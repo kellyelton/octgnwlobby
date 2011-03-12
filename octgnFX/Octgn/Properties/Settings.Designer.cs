@@ -133,13 +133,25 @@ namespace Octgn.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.0.1.11")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.0.1.12")]
         public string currevision {
             get {
                 return ((string)(this["currevision"]));
             }
             set {
                 this["currevision"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string password {
+            get {
+                return ((string)(this["password"]));
+            }
+            set {
+                this["password"] = value;
             }
         }
     }
