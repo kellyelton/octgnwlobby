@@ -14,6 +14,7 @@ namespace Octgn.Lobby
         {
             lock (locker)
             {
+                //lol
                 if (!ex.Message.Trim().Equals("Thread was being aborted."))
                 {
                     FileStream f = File.Open("errors.log", FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
