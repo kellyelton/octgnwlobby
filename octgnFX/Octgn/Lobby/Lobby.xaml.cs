@@ -24,11 +24,13 @@ namespace Octgn.Lobby
         private int intIpTried = 0;
         private String[] ips;
         private int port;
+        private Boolean justScrolledToBottom;
         public Boolean okToCloseMainWindow;
 
         public Lobby()
         {
             eSub();
+            justScrolledToBottom = false;
             InitializeComponent();
             okToCloseMainWindow = false;
             if (Settings.Default.LobbySound)
@@ -178,32 +180,29 @@ namespace Octgn.Lobby
                                             //Program.Client.Connect();
                                             //Program.LClient.isHosting = true;
                                         }
-                                        else
+                                        Run r = new Run("#SYSTEM: ");
+                                        Brush b = Brushes.Red;
+                                        r.ToolTip = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
+                                        r.Foreground = b;
+                                        r.Cursor = Cursors.Hand;
+                                        r.Background = Brushes.White;
+                                        Paragraph p = new Paragraph();
+                                        p.Inlines.Add(new Bold(r));
+                                        r = new Run(game.strHostName + " is hosting a " + game.strGameName + " ");
+                                        p.Inlines.Add(r);
+                                        r = getGameRun(game.strHostName, game);
+                                        p.Inlines.Add(r);
+                                        r = new Run(": " + game.strName);
+                                        p.Inlines.Add(r);
+                                        rtbChat.Document.Blocks.Add(p);
+                                        rtbChat.ScrollToEnd();
+                                        if (Settings.Default.LobbySound)
                                         {
-                                            Run r = new Run("#SYSTEM: ");
-                                            Brush b = Brushes.Red;
-                                            r.ToolTip = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
-                                            r.Foreground = b;
-                                            r.Cursor = Cursors.Hand;
-                                            r.Background = Brushes.White;
-                                            Paragraph p = new Paragraph();
-                                            p.Inlines.Add(new Bold(r));
-                                            r = new Run(game.strHostName + " is hosting a " + game.strGameName + " ");
-                                            p.Inlines.Add(r);
-                                            r = getGameRun(game.strHostName, game);
-                                            p.Inlines.Add(r);
-                                            r = new Run(": " + game.strName);
-                                            p.Inlines.Add(r);
-                                            rtbChat.Document.Blocks.Add(p);
-                                            rtbChat.ScrollToEnd();
-                                            if (Settings.Default.LobbySound)
-                                            {
-                                                System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Properties.Resources.click);
-                                                sp.Play();
-                                            }
-
-                                            Program.LClient.HostedGames.Add(game);
+                                            System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Properties.Resources.click);
+                                            sp.Play();
                                         }
+
+                                        Program.LClient.HostedGames.Add(game);
                                     }
                                 }
                             )
@@ -255,8 +254,14 @@ namespace Octgn.Lobby
             };
             r.AddHandler(UIElement.MouseLeftButtonDownEvent, new MouseButtonEventHandler(delegate(object sender, MouseButtonEventArgs e)
             {
+                if (user.Equals(Program.LClient.strUserName))
+                    return;
                 if (!Program.LClient.isHosting && !Program.LClient.isJoining)
                 {
+                    if ((Application.Current.MainWindow as Play.PlayWindow) != null)
+                        Application.Current.MainWindow.Close();
+                    else if ((Application.Current.MainWindow as DeckBuilder.DeckBuilderWindow) != null)
+                        Application.Current.MainWindow.Close();
                     Program.LClient.isJoining = true;
                     if (SelectGame(game.getStrGUID()))
                     {
@@ -391,6 +396,39 @@ namespace Octgn.Lobby
                     {
                         if (rtbChat == null)
                             return;
+                        bool rtbatbottom = false;
+                        //check to see if the richtextbox is scrolled to the bottom.
+                        //----------------------------------------------------------------------------------
+                        double dVer = rtbChat.VerticalOffset;
+
+                        //get the vertical size of the scrollable content area
+                        double dViewport = rtbChat.ViewportHeight;
+
+                        //get the vertical size of the visible content area
+                        double dExtent = rtbChat.ExtentHeight;
+
+                        if (dVer != 0)
+                        {
+                            if (dVer + dViewport == dExtent)
+                            {
+                                rtbatbottom = true;
+                                justScrolledToBottom = false;
+                            }
+                            else
+                            {
+                                if (!justScrolledToBottom)
+                                {
+                                    Paragraph pa = new Paragraph();
+                                    Run ru = new Run("------------------------------");
+                                    ru.Foreground = Brushes.Red;
+                                    pa.Inlines.Add(new Bold(ru));
+                                    rtbChat.Document.Blocks.Add(pa);
+                                    justScrolledToBottom = true;
+                                }
+                            }
+                        }
+                        //----------------------------------------------------------------------------------
+
                         Paragraph p = new Paragraph();
                         Run r;
                         Brush b;
@@ -474,7 +512,11 @@ namespace Octgn.Lobby
                             }
                         }
                         rtbChat.Document.Blocks.Add(p);
-                        rtbChat.ScrollToEnd();
+
+                        if (rtbatbottom)
+                        {
+                            rtbChat.ScrollToEnd();
+                        }
                         if (Settings.Default.LobbySound)
                         {
                             System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Properties.Resources.click);
@@ -615,6 +657,7 @@ namespace Octgn.Lobby
             Program.LClient.writeMessage(sm);
             Update_Online_Users();
             tbNickname.Text = "Your nickname: " + Program.LClient.strUserName;
+            rtbChat.ScrollToEnd();
         }
 
         private bool isOnlineUserName(String user)
@@ -742,6 +785,11 @@ namespace Octgn.Lobby
                 HostedGame hg = Program.LClient.HostedGames[ind];
                 if (SelectGame(hg.getStrGUID()))
                 {
+                    if (hg.strHostName.Equals(Program.LClient.strUserName))
+                    {
+                        Program.LClient.isJoining = false;
+                        return;
+                    }
                     intIpTried = 0;
                     port = hg.getIntPort();
                     ips = hg.getStrHost();
