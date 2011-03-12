@@ -398,9 +398,13 @@ namespace Octgn.Lobby
                         {
                             case LobbyClient.LobbyChatTypes.Global:
                                 r = getUserRun(user, "[" + user + "]: ");
-                                b = System.Windows.Media.Brushes.Black;
+                                if (user.Substring(0, 5).ToLower().Equals("<irc>"))
+                                    b = System.Windows.Media.Brushes.DarkGray;
+                                else
+                                    b = System.Windows.Media.Brushes.Black;
                                 if (user.Equals(Program.LClient.strUserName))
                                     b = Brushes.Blue;
+
                                 r.Foreground = b;
 
                                 p.Inlines.Add(new Bold(r));
