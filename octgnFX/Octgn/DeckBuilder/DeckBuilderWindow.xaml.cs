@@ -8,6 +8,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Octgn.Data;
+using Octgn.Lobby;
 
 namespace Octgn.DeckBuilder
 {
@@ -286,9 +287,16 @@ namespace Octgn.DeckBuilder
 
         private void CardSelected(object sender, SearchCardImageEventArgs e)
         {
-            cardImage.Source = new BitmapImage(e.Image != null ?
-                CardModel.GetPictureUri(Game, e.SetId, e.Image) :
-                Game.GetCardBackUri());
+            try
+            {
+                cardImage.Source = new BitmapImage(e.Image != null ?
+                    CardModel.GetPictureUri(Game, e.SetId, e.Image) :
+                    Game.GetCardBackUri());
+            }
+            catch (Exception er)
+            {
+                ErrorLog.WriteError(er, "DeckBuilderWindowError: " + Game.GetCardBackUri() + ":" + e.SetId.ToString() + ":" + e.Image + ":" + Game.Name, false);
+            }
         }
 
         private void ElementSelected(object sender, SelectionChangedEventArgs e)
