@@ -26,7 +26,6 @@ namespace Octgn
                     Exception ex = args.ExceptionObject as Exception;
                     var wnd = new ErrorWindow(ex);
                     wnd.ShowDialog();
-
                     ErrorLog.WriteError(ex, "Unhandled Exception main", false);
                 };
 

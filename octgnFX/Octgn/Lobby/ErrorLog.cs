@@ -21,10 +21,26 @@ namespace Octgn.Lobby
                     sw.WriteLine("------------------------------------------------------------------------");
                     sw.WriteLine(DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString());
                     sw.WriteLine("handleError message: " + error);
-                    sw.WriteLine("Exception Message: " + ex.Message);
-                    sw.WriteLine("StackTrace: ");
-                    sw.Write(ex.StackTrace);
-                    sw.WriteLine("------------------------------------------------------------------------");
+                    if (ex.Message != null)
+                        sw.WriteLine("Exception Message: " + ex.Message);
+                    if (ex.Source != null)
+                        sw.WriteLine("Source: " + ex.Source);
+                    if (ex.TargetSite != null)
+                        sw.WriteLine("Target Site: " + ex.TargetSite.ToString());
+                    if (ex.Data != null)
+                        sw.WriteLine("Data: " + ex.Data.ToString());
+                    if (ex.InnerException != null)
+                    {
+                        sw.WriteLine("---------Inner Exception---------------------------------");
+                        sw.WriteLine(ex.ToString());
+                        sw.WriteLine("---------------------------------------------------------");
+                    }
+                    if (ex.StackTrace != null)
+                    {
+                        sw.WriteLine("StackTrace: ");
+                        sw.Write(ex.StackTrace);
+                    }
+                    sw.WriteLine("------------------------------------------------------------------------\n");
                     sw.Close();
                     if (KillApp)
                     {
