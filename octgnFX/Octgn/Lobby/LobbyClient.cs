@@ -22,7 +22,7 @@ namespace Octgn.Lobby
         public delegate void UserDelegate(User user, bool Connected);
         //TODO Blah
         public delegate void UserStatusChangedDelegate(User user, PlayerStatus status);
-        public delegate void LobbyChatDelegate(LobbyChatTypes type, String user, String chat);
+        public delegate void LobbyChatDelegate(LobbyChatTypes type, String user, String chat, Boolean inXaml);
         private delegate void NoArgsDelegate();
         private bool loggedIn;
         private string strLastWhisperFrom;
@@ -381,7 +381,15 @@ namespace Octgn.Lobby
                             case "LOBCHAT":
                                 try
                                 {
-                                    eLobbyChat.Invoke(LobbyChatTypes.Global, (String)args[0], (String)args[1]);
+                                    eLobbyChat.Invoke(LobbyChatTypes.Global, (String)args[0], (String)args[1], false);
+                                }
+                                catch (Exception e)
+                                { }
+                                break;
+                            case "XAMLCHAT":
+                                try
+                                {
+                                    eLobbyChat.Invoke(LobbyChatTypes.System, (String)args[0], (String)args[1], true);
                                 }
                                 catch (Exception e)
                                 { }
@@ -392,21 +400,21 @@ namespace Octgn.Lobby
                                     String[] s = args[0].Split(new char[1] { ':' });
                                     if (s[0] != strUserName)
                                         strLastWhisperFrom = s[0];
-                                    eLobbyChat.Invoke(LobbyChatTypes.Whisper, (String)args[0], (String)args[1]);
+                                    eLobbyChat.Invoke(LobbyChatTypes.Whisper, (String)args[0], (String)args[1], false);
                                 }
                                 catch (Exception e) { };
                                 break;
                             case "CHATERROR":
                                 try
                                 {
-                                    eLobbyChat.Invoke(LobbyChatTypes.Error, "ERROR", (String)args[0]);
+                                    eLobbyChat.Invoke(LobbyChatTypes.Error, "ERROR", (String)args[0], false);
                                 }
                                 catch (Exception e) { };
                                 break;
                             case "CHATINFO":
                                 try
                                 {
-                                    eLobbyChat.Invoke(LobbyChatTypes.System, "SYSTEM", (String)args[0]);
+                                    eLobbyChat.Invoke(LobbyChatTypes.System, "SYSTEM", (String)args[0], false);
                                 }
                                 catch (Exception e) { };
                                 break;

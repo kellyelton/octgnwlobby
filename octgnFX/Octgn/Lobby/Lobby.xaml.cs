@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shell;
@@ -114,6 +116,7 @@ namespace Octgn.Lobby
                 Program.LClient.eLogEvent -= LClient_eConnection;
                 Program.LClient.eGameHost -= LClient_eGameHost;
                 Program.LClient.eUserStatusChanged -= LClient_eUserStatusChanged;
+                NavigationService.Navigating -= NavigationService_Navigating;
                 var navWnd = Application.Current.MainWindow as Octgn.Launcher.LauncherWindow;
             }
             catch (Exception e) { };
@@ -317,12 +320,12 @@ namespace Octgn.Lobby
                                 {
                                     if (ConEvent.Equals("DC"))
                                     {
-                                        LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", "Disconnected from server! /reconnect to reconnect. /login email password to log back in.");
+                                        LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", "Disconnected from server! /reconnect to reconnect. /login email password to log back in.", false);
                                         //Leave_Lobby();
                                     }
                                     else if (ConEvent.Equals("CON"))
                                     {
-                                        LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", "Connected to server!");
+                                        LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", "Connected to server!", false);
                                     }
                                 }
                             )
@@ -354,7 +357,7 @@ namespace Octgn.Lobby
                                     {
                                         if (!user.Username.Equals(""))
                                         {
-                                            LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", user.Username + " joined the lobby.");
+                                            LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", user.Username + " joined the lobby.", false);
                                             if (Settings.Default.LobbySound)
                                             {
                                                 System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Properties.Resources.logon);
@@ -366,7 +369,7 @@ namespace Octgn.Lobby
                                     {
                                         if (!user.Username.Equals(""))
                                         {
-                                            LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", user.Username + " left the lobby.");
+                                            LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", user.Username + " left the lobby.", false);
                                             if (Settings.Default.LobbySound)
                                             {
                                                 System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Properties.Resources.logoff);
@@ -385,7 +388,7 @@ namespace Octgn.Lobby
             thread.Start();
         }
 
-        private void LClient_eLobbyChat(LobbyClient.LobbyChatTypes type, string user, string chat)
+        private void LClient_eLobbyChat(LobbyClient.LobbyChatTypes type, string user, string chat, bool inXaml)
         {
             rtbChat.Dispatcher.Invoke
             (
@@ -456,11 +459,63 @@ namespace Octgn.Lobby
                                 r = new Run("#" + user + ": ");
                                 b = Brushes.Red;
                                 r.ToolTip = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
-                                r.Foreground = b;
+                                if (user.Equals("SUPPORT"))
+                                    r.Foreground = Brushes.White;
+                                else
+                                    r.Foreground = b;
                                 r.Cursor = Cursors.Hand;
-                                r.Background = Brushes.White;
-                                p.Inlines.Add(new Bold(r));
+                                //r.Background = Brushes.White;
 
+                                p.Inlines.Add(new Bold(r));
+                                if (user.Equals("SUPPORT"))
+                                {
+                                    try
+                                    {
+                                        rtbChat.Document.Blocks.Add(p);
+                                        //Put xaml into rtb-------------------------------------------------------------
+                                        StringReader stringReader = new StringReader(chat);
+                                        System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(stringReader);
+                                        FlowDocument d = XamlReader.Load(xmlReader) as FlowDocument;
+                                        Section s = new Section();
+                                        s.BorderBrush = Brushes.Black;
+                                        s.BorderThickness = new Thickness(1);
+                                        s.Blocks.Add(p);
+                                        GradientStopCollection gsc = new GradientStopCollection();
+                                        gsc.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#e8c1c0"), 0));
+                                        gsc.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#c42123"), .4));
+                                        gsc.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#ea3a3c"), 1));
+                                        s.Background = new LinearGradientBrush(gsc, (double)90.0);
+
+                                        while (d.Blocks.Count > 0)
+                                        {
+                                            Block block = d.Blocks.FirstBlock;
+                                            //block.BorderBrush = Brushes.Red;
+                                            //block.BorderThickness = new Thickness(1);
+                                            block.Foreground = Brushes.White;
+                                            s.Blocks.Add(block);
+                                            //richTextBox1.Document.Blocks.Add(block);
+                                        }
+                                        rtbChat.Document.Blocks.Add(s);
+                                        //-------------------------------------------------------------------------------------------------------------
+                                        if (rtbatbottom)
+                                        {
+                                            rtbChat.ScrollToEnd();
+                                        }
+                                        if (Settings.Default.LobbySound && !Program.lwLobbyWindow.IsActive)
+                                        {
+                                            System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Properties.Resources.click);
+                                            sp.Play();
+                                        }
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        if (chat != null)
+                                            ErrorLog.WriteError(e, chat, false);
+                                        else
+                                            ErrorLog.WriteError(e, "null chat", false);
+                                    }
+                                    return;
+                                }
                                 break;
                             case LobbyClient.LobbyChatTypes.Whisper:
                                 String[] w = user.Split(new char[1] { ':' });
@@ -530,6 +585,10 @@ namespace Octgn.Lobby
                     }
                 )
             );
+        }
+
+        private void NavigationService_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
         }
 
         public Inline StringToRun(String s, LobbyClient.LobbyChatTypes type)
@@ -663,6 +722,7 @@ namespace Octgn.Lobby
             Update_Online_Users();
             tbNickname.Text = "Your nickname: " + Program.LClient.strUserName;
             rtbChat.ScrollToEnd();
+            NavigationService.Navigating += new System.Windows.Navigation.NavigatingCancelEventHandler(NavigationService_Navigating);
         }
 
         private bool isOnlineUserName(String user)
@@ -800,14 +860,25 @@ namespace Octgn.Lobby
                     intIpTried = 0;
                     port = hg.getIntPort();
                     ips = hg.getStrHost();
-                    IPHostEntry host = Dns.GetHostEntry(ips[0]);
+                    IPHostEntry host = null;
+                    try
+                    {
+                        host = Dns.GetHostEntry(ips[0]);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("DNS Error. Please try restarting any routers or modems you have. If that doesn't work restart your computer.");
+                        Program.LClient.isJoining = false;
+                    }
 
-                    // Addres of the host.
-                    IPAddress[] addressList = host.AddressList;
+                    if (host != null)
+                    {
+                        IPAddress[] addressList = host.AddressList;
 
-                    ips[0] = addressList[0].ToString();
+                        ips[0] = addressList[0].ToString();
 
-                    Join_Game(ips, hg.getIntPort());
+                        Join_Game(ips, hg.getIntPort());
+                    }
                 }
                 else
                 {
