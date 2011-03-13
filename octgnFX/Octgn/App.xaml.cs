@@ -27,8 +27,14 @@ namespace Octgn
                     var wnd = new ErrorWindow(ex);
                     wnd.ShowDialog();
                     ErrorLog.WriteError(ex, "Unhandled Exception main", false);
+                    ErrorLog.CheckandUpload();
+                    MessageBox.Show("Uploaded error log.");
                 };
-
+            AppDomain.CurrentDomain.ProcessExit += delegate(object sender, EventArgs ea)
+            {
+                ErrorLog.CheckandUpload();
+                MessageBox.Show("Uploaded error log.");
+            };
             Updates.PerformHouskeeping();
 
             Program.GamesRepository = new Octgn.Data.GamesRepository();
@@ -42,6 +48,8 @@ namespace Octgn
             // If a game is running (e.g. in StartGame.xaml) some threads don't
             // stop (i.e. the database thread and/or the networking threads)
             if (Program.IsGameRunning) Program.StopGame();
+            ErrorLog.CheckandUpload();
+            MessageBox.Show("Uploaded error log.");
             base.OnExit(e);
         }
     }

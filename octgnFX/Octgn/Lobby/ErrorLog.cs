@@ -83,6 +83,7 @@ namespace Octgn.Lobby
                         sr.Close();
                         if (!String.IsNullOrEmpty(errors) && !String.IsNullOrWhiteSpace(errors))
                         {
+                            errors += "Exit time: " + DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
                             errors += "------------------------------------------------------------------------\n";
                             errors += "System info\n";
                             errors += "------------------------------------------------------------------------\n";

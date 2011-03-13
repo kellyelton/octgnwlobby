@@ -1,7 +1,6 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using Octgn.Lobby;
 
 namespace Octgn.Launcher
 {
@@ -86,7 +85,10 @@ namespace Octgn.Launcher
 
         private void LobbyClicked(object sender, RoutedEventArgs e)
         {
-            ErrorLog.CheckandUpload();
+            //TODO Remove, it makes an error on purpose.
+            String s = null;
+            if (s.Equals("a"))
+                MessageBox.Show(s);
             if (Program.lwLobbyWindow == null)
             {
                 Program.lwLobbyWindow = new Octgn.Lobby.LobbyWindow();
