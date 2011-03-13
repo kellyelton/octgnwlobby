@@ -677,7 +677,11 @@ namespace Octgn.Lobby
         {
             Hyperlink hl = (Hyperlink)sender;
             string navigateUri = hl.NavigateUri.ToString();
-            Process.Start(new ProcessStartInfo(navigateUri));
+            try
+            {
+                Process.Start(new ProcessStartInfo(navigateUri));
+            }
+            catch { }
             e.Handled = true;
         }
 
