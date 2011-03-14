@@ -60,7 +60,7 @@ namespace Octgn.Lobby
             }
         }
 
-        public static void CheckandUpload()
+        public static bool CheckandUpload()
         {
             lock (locker)
             {
@@ -100,6 +100,7 @@ namespace Octgn.Lobby
                                     File.Delete("errors.log");
                                 }
                                 catch (Exception e) { }
+                                return true;
                             }
                             catch { }
                         }
@@ -112,6 +113,7 @@ namespace Octgn.Lobby
                 catch (Exception e)
                 {
                 }
+                return false;
             }
         }
     }

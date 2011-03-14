@@ -27,13 +27,13 @@ namespace Octgn
                     var wnd = new ErrorWindow(ex);
                     wnd.ShowDialog();
                     ErrorLog.WriteError(ex, "Unhandled Exception main", false);
-                    ErrorLog.CheckandUpload();
-                    MessageBox.Show("Uploaded error log.");
+                    if (ErrorLog.CheckandUpload())
+                        MessageBox.Show("Uploaded error log.");
                 };
             AppDomain.CurrentDomain.ProcessExit += delegate(object sender, EventArgs ea)
             {
-                ErrorLog.CheckandUpload();
-                MessageBox.Show("Uploaded error log.");
+                if (ErrorLog.CheckandUpload())
+                    MessageBox.Show("Uploaded error log.");
             };
             Updates.PerformHouskeeping();
 
