@@ -85,10 +85,6 @@ namespace Octgn.Launcher
 
         private void LobbyClicked(object sender, RoutedEventArgs e)
         {
-            //TODO Remove, it makes an error on purpose.
-            String s = null;
-            if (s.Equals("a"))
-                MessageBox.Show(s);
             if (Program.lwLobbyWindow == null)
             {
                 Program.lwLobbyWindow = new Octgn.Lobby.LobbyWindow();
