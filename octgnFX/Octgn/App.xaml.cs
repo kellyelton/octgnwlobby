@@ -48,8 +48,8 @@ namespace Octgn
             // If a game is running (e.g. in StartGame.xaml) some threads don't
             // stop (i.e. the database thread and/or the networking threads)
             if (Program.IsGameRunning) Program.StopGame();
-            ErrorLog.CheckandUpload();
-            MessageBox.Show("Uploaded error log.");
+            if (ErrorLog.CheckandUpload())
+                MessageBox.Show("Uploaded error log.");
             base.OnExit(e);
         }
     }
