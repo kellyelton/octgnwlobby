@@ -462,7 +462,10 @@ namespace Octgn.Lobby
                                 if (user.Equals("SUPPORT"))
                                     r.Foreground = Brushes.White;
                                 else
+                                {
+                                    Program.TraceWarning("#" + user + ": " + chat);
                                     r.Foreground = b;
+                                }
                                 r.Cursor = Cursors.Hand;
                                 //r.Background = Brushes.White;
 
@@ -527,6 +530,7 @@ namespace Octgn.Lobby
                                 else
                                     u = w[0];
                                 r = getUserRun(u, "<" + w[0] + ">" + w[1] + ": ");
+                                Program.TraceWarning("#WHISPER FROM " + u + " : " + chat);
                                 r.ToolTip = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString() + "\nClick here to whisper back";
                                 b = Brushes.Orange;
                                 r.Foreground = b;
