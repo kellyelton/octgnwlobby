@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using Octgn.Play;
@@ -28,6 +29,11 @@ namespace Octgn.Launcher
 
             Loaded += delegate
             {
+                if (this == null)
+                {
+                    Thread.Sleep(2000);
+                }
+                if (this == null) return;
                 Program.Dispatcher = this.Dispatcher;
                 Program.ServerError += HandshakeError;
                 if (Program.IsHost)

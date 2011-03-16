@@ -710,6 +710,10 @@ namespace Octgn.Lobby
             if (listBox1 == null)
                 return;
             listBox1.Items.Clear();
+            Program.LClient.OnlineUsers.Sort(delegate(LobbyClient.User p1, LobbyClient.User p2)
+            {
+                return p1.Username.CompareTo(p2.Username);
+            });
             for (int i = 0; i < Program.LClient.OnlineUsers.Count; i++)
             {
                 if (!listBox1.Items.Contains(Program.LClient.OnlineUsers[i].Username.ToString()))
@@ -857,7 +861,16 @@ namespace Octgn.Lobby
                 if (ind < 0)
                     return;
                 Program.LClient.isJoining = true;
-                HostedGame hg = Program.LClient.HostedGames[ind];
+                HostedGame hg = null;
+                try
+                {
+                    hg = Program.LClient.HostedGames[ind];
+                }
+                catch (ArgumentOutOfRangeException oor)
+                {
+                    MessageBox.Show("That game no longer exists.");
+                    return;
+                }
                 if (SelectGame(hg.getStrGUID()))
                 {
                     if (hg.strHostName.Equals(Program.LClient.strUserName))
@@ -881,11 +894,18 @@ namespace Octgn.Lobby
 
                     if (host != null)
                     {
-                        IPAddress[] addressList = host.AddressList;
+                        try
+                        {
+                            IPAddress[] addressList = host.AddressList;
 
-                        ips[0] = addressList[0].ToString();
+                            ips[0] = addressList[0].ToString();
 
-                        Join_Game(ips, hg.getIntPort());
+                            Join_Game(ips, hg.getIntPort());
+                        }
+                        catch (ArgumentOutOfRangeException oor)
+                        {
+                            MessageBox.Show("Error connecting.");
+                        }
                     }
                 }
                 else
@@ -920,6 +940,11 @@ namespace Octgn.Lobby
             catch (IndexOutOfRangeException e)
             {
                 ConnectedCallback(this, new ConnectedEventArgs(e));
+            }
+            catch (ObjectDisposedException ode)
+            {
+                MessageBox.Show("You have to be connected to the lobby to join or host a game.");
+                ConnectedCallback(this, new ConnectedEventArgs(ode));
             }
         }
 
@@ -1021,12 +1046,16 @@ namespace Octgn.Lobby
 
         private void rtbChat_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!Program.lwLobbyWindow.IsActive)
+            try
             {
-                if (Program.lwLobbyWindow.TaskbarItemInfo == null)
-                    Program.lwLobbyWindow.TaskbarItemInfo = new TaskbarItemInfo();
-                Program.lwLobbyWindow.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Indeterminate;
+                if (!Program.lwLobbyWindow.IsActive)
+                {
+                    if (Program.lwLobbyWindow.TaskbarItemInfo == null)
+                        Program.lwLobbyWindow.TaskbarItemInfo = new TaskbarItemInfo();
+                    Program.lwLobbyWindow.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Indeterminate;
+                }
             }
+            catch { }
         }
 
         private void image1_MouseUp(object sender, MouseButtonEventArgs e)

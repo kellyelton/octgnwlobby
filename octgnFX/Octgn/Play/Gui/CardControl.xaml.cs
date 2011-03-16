@@ -588,17 +588,23 @@ namespace Octgn.Play.Gui
         protected void DragCardCompleted()
         {
             // Release the card and its group
-            foreach (Card c in draggedCards) c.ReleaseControl();
-            Card.Group.ReleaseControl();
+            if (draggedCards != null)
+            {
+                foreach (Card c in draggedCards) c.ReleaseControl();
+                Card.Group.ReleaseControl();
+            }
 
             // Remove the visual feedback
-            var layer = AdornerLayer.GetAdornerLayer(mainWin.Content as System.Windows.Media.Visual);
-            foreach (var overlay in overlayElements)
+            if (overlayElements != null)
             {
-                layer.Remove(overlay);
-                overlay.Dispose();
+                var layer = AdornerLayer.GetAdornerLayer(mainWin.Content as System.Windows.Media.Visual);
+                foreach (var overlay in overlayElements)
+                {
+                    layer.Remove(overlay);
+                    overlay.Dispose();
+                }
+                overlayElements.Clear();
             }
-            overlayElements.Clear();
 
             // Raise CardOutEvent
             if (lastDragTarget != null)
@@ -626,7 +632,8 @@ namespace Octgn.Play.Gui
                 foreach (var cardCtrl in Selection.GetCardControls(groupCtrl, this))
                     cardCtrl.Opacity = 1;
 
-            draggedCards.Clear();
+            if (draggedCards != null)
+                draggedCards.Clear();
         }
 
         protected void DragMouseDelta(double dx, double dy)
