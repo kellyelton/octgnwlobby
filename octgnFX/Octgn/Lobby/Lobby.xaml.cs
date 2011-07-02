@@ -35,7 +35,7 @@ namespace Octgn.Lobby
             justScrolledToBottom = false;
             InitializeComponent();
             okToCloseMainWindow = false;
-            if (Settings.Default.LobbySound)
+            if(Settings.Default.LobbySound)
             {
                 Uri myUri = new Uri("/OCTGNwLobby;component/Images/audio.png", UriKind.RelativeOrAbsolute);
                 imgSound.Source = new BitmapImage(myUri);
@@ -46,14 +46,14 @@ namespace Octgn.Lobby
                 imgSound.Source = new BitmapImage(myUri);
             }
 
-            if (Program.GamesRepository != null)
+            if(Program.GamesRepository != null)
             {
-                foreach (Data.Game g in Program.GamesRepository.Games)
+                foreach(Data.Game g in Program.GamesRepository.Games)
                 {
                     comboBox1.Items.Add(g.Name);
                 }
             }
-            if (Program.Game != null)
+            if(Program.Game != null)
                 comboBox1.Text = Program.Game.Definition.Name;
 
             this.rtbChat.SetValue(Paragraph.LineHeightProperty, .5);
@@ -72,13 +72,13 @@ namespace Octgn.Lobby
                 Program.LClient.eUserStatusChanged += new LobbyClient.UserStatusChangedDelegate(LClient_eUserStatusChanged);
                 Program.lwLobbyWindow.Activated += delegate(object sender, EventArgs e)
                 {
-                    if (Program.lwLobbyWindow.TaskbarItemInfo == null)
+                    if(Program.lwLobbyWindow.TaskbarItemInfo == null)
                         Program.lwLobbyWindow.TaskbarItemInfo = new TaskbarItemInfo();
-                    if (Program.lwLobbyWindow.TaskbarItemInfo.ProgressState == TaskbarItemProgressState.Indeterminate)
+                    if(Program.lwLobbyWindow.TaskbarItemInfo.ProgressState == TaskbarItemProgressState.Indeterminate)
                         Program.lwLobbyWindow.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.None;
                 };
             }
-            catch (Exception e) { };
+            catch(Exception e) { };
         }
 
         private void LClient_eUserStatusChanged(LobbyClient.User user, PlayerStatus status)
@@ -119,13 +119,13 @@ namespace Octgn.Lobby
                 NavigationService.Navigating -= NavigationService_Navigating;
                 var navWnd = Application.Current.MainWindow as Octgn.Launcher.LauncherWindow;
             }
-            catch (Exception e) { };
+            catch(Exception e) { };
         }
 
         private DataGridRow GetRow(DataGrid dg, int index)
         {
             DataGridRow row = (DataGridRow)dg.ItemContainerGenerator.ContainerFromIndex(index);
-            if (row == null)
+            if(row == null)
             {
                 // may be virtualized, bring into view and try again
                 dg.ScrollIntoView(dg.Items[index]);
@@ -149,22 +149,22 @@ namespace Octgn.Lobby
                             (
                                 delegate()
                                 {
-                                    if (unHosting)
+                                    if(unHosting)
                                     {
-                                        for (int i = 0; i < Program.LClient.HostedGames.Count; i++)
+                                        for(int i = 0; i < Program.LClient.HostedGames.Count; i++)
                                         {
-                                            if (Program.LClient.HostedGames[i].intUGameNum == game.intUGameNum)
+                                            if(Program.LClient.HostedGames[i].intUGameNum == game.intUGameNum)
                                                 Program.LClient.HostedGames.RemoveAt(i);
                                         }
                                         return;
                                     }
-                                    if (isGameListItem)
+                                    if(isGameListItem)
                                     {
                                         Program.LClient.HostedGames.Add(game);
                                     }
                                     else
                                     {
-                                        if (game.strHostName == Program.LClient.strUserName)
+                                        if(game.strHostName == Program.LClient.strUserName)
                                         {
                                             IPHostEntry host = Dns.GetHostEntry(game.getStrHost()[0]);
 
@@ -173,7 +173,7 @@ namespace Octgn.Lobby
 
                                             ips = new String[addressList.Length];
                                             int i = 0;
-                                            foreach (IPAddress ip in addressList)
+                                            foreach(IPAddress ip in addressList)
                                             {
                                                 ips[i] = ip.ToString();
                                                 i++;
@@ -199,7 +199,7 @@ namespace Octgn.Lobby
                                         p.Inlines.Add(r);
                                         rtbChat.Document.Blocks.Add(p);
                                         rtbChat.ScrollToEnd();
-                                        if (Settings.Default.LobbySound)
+                                        if(Settings.Default.LobbySound)
                                         {
                                             System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Properties.Resources.click);
                                             sp.Play();
@@ -257,16 +257,16 @@ namespace Octgn.Lobby
             };
             r.AddHandler(UIElement.MouseLeftButtonDownEvent, new MouseButtonEventHandler(delegate(object sender, MouseButtonEventArgs e)
             {
-                if (user.Equals(Program.LClient.strUserName))
+                if(user.Equals(Program.LClient.strUserName))
                     return;
-                if (!Program.LClient.isHosting && !Program.LClient.isJoining)
+                if(!Program.LClient.isHosting && !Program.LClient.isJoining)
                 {
-                    if ((Application.Current.MainWindow as Play.PlayWindow) != null)
+                    if((Application.Current.MainWindow as Play.PlayWindow) != null)
                         Application.Current.MainWindow.Close();
-                    else if ((Application.Current.MainWindow as DeckBuilder.DeckBuilderWindow) != null)
+                    else if((Application.Current.MainWindow as DeckBuilder.DeckBuilderWindow) != null)
                         Application.Current.MainWindow.Close();
                     Program.LClient.isJoining = true;
-                    if (SelectGame(game.getStrGUID()))
+                    if(SelectGame(game.getStrGUID()))
                     {
                         intIpTried = 0;
                         port = game.getIntPort();
@@ -290,11 +290,11 @@ namespace Octgn.Lobby
                 }
                 else
                 {
-                    if (Program.LClient.isHosting)
+                    if(Program.LClient.isHosting)
                     {
                         MessageBox.Show("Please stop hosting first.");
                     }
-                    if (Program.LClient.isJoining)
+                    if(Program.LClient.isJoining)
                     {
                         MessageBox.Show("Please stop joining first.");
                     }
@@ -318,12 +318,12 @@ namespace Octgn.Lobby
                             (
                                 delegate()
                                 {
-                                    if (ConEvent.Equals("DC"))
+                                    if(ConEvent.Equals("DC"))
                                     {
                                         LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", "Disconnected from server! /reconnect to reconnect. /login email password to log back in.", false);
                                         //Leave_Lobby();
                                     }
-                                    else if (ConEvent.Equals("CON"))
+                                    else if(ConEvent.Equals("CON"))
                                     {
                                         LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", "Connected to server!", false);
                                     }
@@ -351,14 +351,14 @@ namespace Octgn.Lobby
                             (
                                 delegate()
                                 {
-                                    if (rtbChat == null)
+                                    if(rtbChat == null)
                                         return;
-                                    if (Connected)
+                                    if(Connected)
                                     {
-                                        if (!user.Username.Equals(""))
+                                        if(!user.Username.Equals(""))
                                         {
                                             LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", user.Username + " joined the lobby.", false);
-                                            if (Settings.Default.LobbySound)
+                                            if(Settings.Default.LobbySound)
                                             {
                                                 System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Properties.Resources.logon);
                                                 sp.Play();
@@ -367,10 +367,10 @@ namespace Octgn.Lobby
                                     }
                                     else
                                     {
-                                        if (!user.Username.Equals(""))
+                                        if(!user.Username.Equals(""))
                                         {
                                             LClient_eLobbyChat(LobbyClient.LobbyChatTypes.System, "SYSTEM", user.Username + " left the lobby.", false);
-                                            if (Settings.Default.LobbySound)
+                                            if(Settings.Default.LobbySound)
                                             {
                                                 System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Properties.Resources.logoff);
                                                 sp.Play();
@@ -397,7 +397,7 @@ namespace Octgn.Lobby
                 (
                     delegate()
                     {
-                        if (rtbChat == null)
+                        if(rtbChat == null)
                             return;
                         bool rtbatbottom = false;
                         //check to see if the richtextbox is scrolled to the bottom.
@@ -410,16 +410,16 @@ namespace Octgn.Lobby
                         //get the vertical size of the visible content area
                         double dExtent = rtbChat.ExtentHeight;
 
-                        if (dVer != 0)
+                        if(dVer != 0)
                         {
-                            if (dVer + dViewport == dExtent)
+                            if(dVer + dViewport == dExtent)
                             {
                                 rtbatbottom = true;
                                 justScrolledToBottom = false;
                             }
                             else
                             {
-                                if (!justScrolledToBottom)
+                                if(!justScrolledToBottom)
                                 {
                                     Paragraph pa = new Paragraph();
                                     Run ru = new Run("------------------------------");
@@ -435,20 +435,20 @@ namespace Octgn.Lobby
                         Paragraph p = new Paragraph();
                         Run r;
                         Brush b;
-                        switch (type)
+                        switch(type)
                         {
                             case LobbyClient.LobbyChatTypes.Global:
                                 r = getUserRun(user, "[" + user + "]: ");
-                                if (user.Length > 5)
+                                if(user.Length > 5)
                                 {
-                                    if (user.Substring(0, 5).ToLower().Equals("<irc>"))
+                                    if(user.Substring(0, 5).ToLower().Equals("<irc>"))
                                         b = System.Windows.Media.Brushes.DarkGray;
                                     else
                                         b = System.Windows.Media.Brushes.Black;
                                 }
                                 else
                                     b = System.Windows.Media.Brushes.Black;
-                                if (user.Equals(Program.LClient.strUserName))
+                                if(user.Equals(Program.LClient.strUserName))
                                     b = Brushes.Blue;
 
                                 r.Foreground = b;
@@ -459,7 +459,7 @@ namespace Octgn.Lobby
                                 r = new Run("#" + user + ": ");
                                 b = Brushes.Red;
                                 r.ToolTip = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
-                                if (user.Equals("SUPPORT"))
+                                if(user.Equals("SUPPORT"))
                                     r.Foreground = Brushes.White;
                                 else
                                 {
@@ -470,7 +470,7 @@ namespace Octgn.Lobby
                                 //r.Background = Brushes.White;
 
                                 p.Inlines.Add(new Bold(r));
-                                if (user.Equals("SUPPORT"))
+                                if(user.Equals("SUPPORT"))
                                 {
                                     try
                                     {
@@ -489,7 +489,7 @@ namespace Octgn.Lobby
                                         gsc.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#ea3a3c"), 1));
                                         s.Background = new LinearGradientBrush(gsc, (double)90.0);
 
-                                        while (d.Blocks.Count > 0)
+                                        while(d.Blocks.Count > 0)
                                         {
                                             Block block = d.Blocks.FirstBlock;
                                             //block.BorderBrush = Brushes.Red;
@@ -500,19 +500,19 @@ namespace Octgn.Lobby
                                         }
                                         rtbChat.Document.Blocks.Add(s);
                                         //-------------------------------------------------------------------------------------------------------------
-                                        if (rtbatbottom)
+                                        if(rtbatbottom)
                                         {
                                             rtbChat.ScrollToEnd();
                                         }
-                                        if (Settings.Default.LobbySound && !Program.lwLobbyWindow.IsActive)
+                                        if(Settings.Default.LobbySound && !Program.lwLobbyWindow.IsActive)
                                         {
                                             System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Properties.Resources.click);
                                             sp.Play();
                                         }
                                     }
-                                    catch (Exception e)
+                                    catch(Exception e)
                                     {
-                                        if (chat != null)
+                                        if(chat != null)
                                             ErrorLog.WriteError(e, chat, false);
                                         else
                                             ErrorLog.WriteError(e, "null chat", false);
@@ -523,9 +523,9 @@ namespace Octgn.Lobby
                             case LobbyClient.LobbyChatTypes.Whisper:
                                 String[] w = user.Split(new char[1] { ':' });
                                 string u = "";
-                                if (!w[0].Equals(Program.LClient.strUserName))
+                                if(!w[0].Equals(Program.LClient.strUserName))
                                     u = w[0];
-                                else if (!w[1].Equals(Program.LClient.strUserName))
+                                else if(!w[1].Equals(Program.LClient.strUserName))
                                     u = w[1];
                                 else
                                     u = w[0];
@@ -546,17 +546,17 @@ namespace Octgn.Lobby
                                 p.Inlines.Add(new Bold(r));
                                 break;
                         }
-                        if (chat.Contains("\n"))
+                        if(chat.Contains("\n"))
                         {
                             String[] lines = chat.Split(new char[1] { '\n' });
-                            foreach (String line in lines)
+                            foreach(String line in lines)
                             {
                                 String[] words = line.Split(new char[1] { ' ' });
-                                foreach (String word in words)
+                                foreach(String word in words)
                                 {
                                     Inline inn = StringToRun(word, type);
 
-                                    if (inn != null)
+                                    if(inn != null)
                                         p.Inlines.Add(inn);
                                     p.Inlines.Add(new Run(" "));
                                 }
@@ -566,22 +566,22 @@ namespace Octgn.Lobby
                         else
                         {
                             String[] words = chat.Split(new char[1] { ' ' });
-                            foreach (String word in words)
+                            foreach(String word in words)
                             {
                                 Inline inn = StringToRun(word, type);
 
-                                if (inn != null)
+                                if(inn != null)
                                     p.Inlines.Add(inn);
                                 p.Inlines.Add(new Run(" "));
                             }
                         }
                         rtbChat.Document.Blocks.Add(p);
 
-                        if (rtbatbottom)
+                        if(rtbatbottom)
                         {
                             rtbChat.ScrollToEnd();
                         }
-                        if (Settings.Default.LobbySound && !Program.lwLobbyWindow.IsActive)
+                        if(Settings.Default.LobbySound && !Program.lwLobbyWindow.IsActive)
                         {
                             System.Media.SoundPlayer sp = new System.Media.SoundPlayer(Properties.Resources.click);
                             sp.Play();
@@ -602,12 +602,12 @@ namespace Octgn.Lobby
             String strUrlRegex = "(?i)\\b((?:[a-z][\\w-]+:(?:/{1,3}|[a-z0-9%])|www\\d{0,3}[.]|[a-z0-9.\\-]+[.][a-z]{2,4}/)(?:[^\\s()<>]+|\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\))+(?:\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\)|[^\\s`!()\\[\\]{};:'\".,<>?«»“”‘’]))";
             Regex reg = new Regex(strUrlRegex);
             s = s.Trim();
-            if (type == LobbyClient.LobbyChatTypes.System || type == LobbyClient.LobbyChatTypes.Error)
+            if(type == LobbyClient.LobbyChatTypes.System || type == LobbyClient.LobbyChatTypes.Error)
                 b = Brushes.Gray;
             else
                 b = Brushes.Black;
             Inline r = new Run(s);
-            if (reg.IsMatch(s))
+            if(reg.IsMatch(s))
             {
                 b = Brushes.LightBlue;
                 Hyperlink h = new Hyperlink(r);
@@ -616,14 +616,14 @@ namespace Octgn.Lobby
                 {
                     h.NavigateUri = new Uri(s);
                 }
-                catch (UriFormatException e)
+                catch(UriFormatException e)
                 {
                     s = "http://" + s;
                     try
                     {
                         h.NavigateUri = new Uri(s);
                     }
-                    catch (Exception ex)
+                    catch(Exception ex)
                     {
                         r.Foreground = b;
                         System.Windows.Documents.Underline ul = new Underline(r);
@@ -633,7 +633,7 @@ namespace Octgn.Lobby
             }
             else
             {
-                if (s.Equals(Program.LClient.strUserName))
+                if(s.Equals(Program.LClient.strUserName))
                 {
                     b = Brushes.Blue;
                     ret = new Bold(r);
@@ -641,9 +641,9 @@ namespace Octgn.Lobby
                 else
                 {
                     Boolean fUser = false;
-                    foreach (LobbyClient.User u in Program.LClient.OnlineUsers)
+                    foreach(LobbyClient.User u in Program.LClient.OnlineUsers)
                     {
-                        if (u.Username == s)
+                        if(u.Username == s)
                         {
                             b = Brushes.LightGreen;
                             ret = new Bold(r);
@@ -667,7 +667,7 @@ namespace Octgn.Lobby
                             break;
                         }
                     }
-                    if (!fUser)
+                    if(!fUser)
                     {
                         ret = new Run(s);
                     }
@@ -707,18 +707,18 @@ namespace Octgn.Lobby
 
         private void Update_Online_Users()
         {
-            if (listBox1 == null)
+            if(listBox1 == null)
                 return;
             listBox1.Items.Clear();
             Program.LClient.OnlineUsers.Sort(delegate(LobbyClient.User p1, LobbyClient.User p2)
             {
                 return p1.Username.CompareTo(p2.Username);
             });
-            for (int i = 0; i < Program.LClient.OnlineUsers.Count; i++)
+            for(int i = 0; i < Program.LClient.OnlineUsers.Count; i++)
             {
-                if (!listBox1.Items.Contains(Program.LClient.OnlineUsers[i].Username.ToString()))
+                if(!listBox1.Items.Contains(Program.LClient.OnlineUsers[i].Username.ToString()))
                 {
-                    if (Program.LClient.OnlineUsers[i].Status == PlayerStatus.Available)
+                    if(Program.LClient.OnlineUsers[i].Status == PlayerStatus.Available)
                         listBox1.Items.Add(Program.LClient.OnlineUsers[i].Username);
                     else
                         listBox1.Items.Add(Program.LClient.OnlineUsers[i].Username + "<" + Program.LClient.OnlineUsers[i].Status.ToString() + ">");
@@ -739,9 +739,9 @@ namespace Octgn.Lobby
 
         private bool isOnlineUserName(String user)
         {
-            for (int u = 0; u < Program.LClient.OnlineUsers.Count; u++)
+            for(int u = 0; u < Program.LClient.OnlineUsers.Count; u++)
             {
-                if (Program.LClient.OnlineUsers[u].Username.Equals(user))
+                if(Program.LClient.OnlineUsers[u].Username.Equals(user))
                     return true;
             }
             return false;
@@ -754,42 +754,42 @@ namespace Octgn.Lobby
 
         private void tbMess_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if(e.Key == Key.Enter)
             {
-                if (!tbMess.Text.Trim().Equals(""))
+                if(!tbMess.Text.Trim().Equals(""))
                 {
                     String temp = Program.LClient.Chat(tbMess.Text);
-                    if (!temp.Equals(""))
+                    if(!temp.Equals(""))
                         lsMessageHistory.Add(temp);
                     tbMess.Text = "";
                     intMessHistoryIndex = 0;
                 }
             }
-            else if (e.Key == Key.Down)
+            else if(e.Key == Key.Down)
             {
                 intMessHistoryIndex++;
-                if (intMessHistoryIndex >= lsMessageHistory.Count)
+                if(intMessHistoryIndex >= lsMessageHistory.Count)
                     intMessHistoryIndex = 0;
                 try
                 {
                     tbMess.Text = lsMessageHistory[intMessHistoryIndex];
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     tbMess.Text = "";
                 }
             }
-            else if (e.Key == Key.Up)
+            else if(e.Key == Key.Up)
             {
                 intMessHistoryIndex--;
-                if (intMessHistoryIndex <= 0)
+                if(intMessHistoryIndex <= 0)
                     intMessHistoryIndex = lsMessageHistory.Count - 1;
 
                 try
                 {
                     tbMess.Text = lsMessageHistory[intMessHistoryIndex];
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     tbMess.Text = "";
                 }
@@ -801,9 +801,9 @@ namespace Octgn.Lobby
             try
             {
                 eUnSub();
-                Program.LClient.Close("Exit Lobby", true);
+                Program.LClient.Close(true);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 //MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
             }
@@ -811,7 +811,7 @@ namespace Octgn.Lobby
             {
                 Program.lwLobbyWindow.Close();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
             }
             Program.lwLobbyWindow = null;
@@ -827,15 +827,15 @@ namespace Octgn.Lobby
             try
             {
                 //HostedGame hg = Program.LClient.HostedGames[ind];
-                for (int i = 0; i < Program.GamesRepository.Games.Count; i++)
+                for(int i = 0; i < Program.GamesRepository.Games.Count; i++)
                 {
-                    if (Program.GamesRepository.Games[i].Id.ToString().Equals(GUID))
+                    if(Program.GamesRepository.Games[i].Id.ToString().Equals(GUID))
                     {
-                        if (Program.Game == null)
+                        if(Program.Game == null)
                         {
                             Program.Game = new Game(GameDef.FromO8G(Program.GamesRepository.Games[i].Filename));
                         }
-                        else if (Program.Game.Definition.Id != Program.GamesRepository.Games[i].Id)
+                        else if(Program.Game.Definition.Id != Program.GamesRepository.Games[i].Id)
                         {
                             Program.Game = new Game(GameDef.FromO8G(Program.GamesRepository.Games[i].Filename));
                         }
@@ -843,7 +843,7 @@ namespace Octgn.Lobby
                     }
                 }
             }
-            catch (Exception exe)
+            catch(Exception exe)
             {
             }
             return false;
@@ -851,14 +851,14 @@ namespace Octgn.Lobby
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-            if (!Program.LClient.isHosting && !Program.LClient.isJoining)
+            if(!Program.LClient.isHosting && !Program.LClient.isJoining)
             {
-                if ((Application.Current.MainWindow as Play.PlayWindow) != null)
+                if((Application.Current.MainWindow as Play.PlayWindow) != null)
                     Application.Current.MainWindow.Close();
-                else if ((Application.Current.MainWindow as DeckBuilder.DeckBuilderWindow) != null)
+                else if((Application.Current.MainWindow as DeckBuilder.DeckBuilderWindow) != null)
                     Application.Current.MainWindow.Close();
                 int ind = dataGrid1.SelectedIndex;
-                if (ind < 0)
+                if(ind < 0)
                     return;
                 Program.LClient.isJoining = true;
                 HostedGame hg = null;
@@ -866,14 +866,14 @@ namespace Octgn.Lobby
                 {
                     hg = Program.LClient.HostedGames[ind];
                 }
-                catch (ArgumentOutOfRangeException oor)
+                catch(ArgumentOutOfRangeException oor)
                 {
                     MessageBox.Show("That game no longer exists.");
                     return;
                 }
-                if (SelectGame(hg.getStrGUID()))
+                if(SelectGame(hg.getStrGUID()))
                 {
-                    if (hg.strHostName.Equals(Program.LClient.strUserName))
+                    if(hg.strHostName.Equals(Program.LClient.strUserName))
                     {
                         Program.LClient.isJoining = false;
                         return;
@@ -886,13 +886,13 @@ namespace Octgn.Lobby
                     {
                         host = Dns.GetHostEntry(ips[0]);
                     }
-                    catch (Exception ex)
+                    catch(Exception ex)
                     {
                         MessageBox.Show("DNS Error. Please try restarting any routers or modems you have. If that doesn't work restart your computer.");
                         Program.LClient.isJoining = false;
                     }
 
-                    if (host != null)
+                    if(host != null)
                     {
                         try
                         {
@@ -902,7 +902,7 @@ namespace Octgn.Lobby
 
                             Join_Game(ips, hg.getIntPort());
                         }
-                        catch (ArgumentOutOfRangeException oor)
+                        catch(ArgumentOutOfRangeException oor)
                         {
                             MessageBox.Show("Error connecting.");
                         }
@@ -917,11 +917,11 @@ namespace Octgn.Lobby
             }
             else
             {
-                if (Program.LClient.isHosting)
+                if(Program.LClient.isHosting)
                 {
                     MessageBox.Show("Please stop hosting first.");
                 }
-                if (Program.LClient.isJoining)
+                if(Program.LClient.isJoining)
                 {
                     MessageBox.Show("Please stop joining first.");
                 }
@@ -933,15 +933,15 @@ namespace Octgn.Lobby
             //change_join_text("Joining...");
             try
             {
-                IPEndPoint ripe = Program.LClient.sock.Client.RemoteEndPoint as IPEndPoint;
+                IPEndPoint ripe = Program.LClient.ShittySocket.Client.RemoteEndPoint as IPEndPoint;
                 Program.Client = new Networking.Client(ripe.Address, port);
                 Program.Client.BeginConnect(ConnectedCallback);
             }
-            catch (IndexOutOfRangeException e)
+            catch(IndexOutOfRangeException e)
             {
                 ConnectedCallback(this, new ConnectedEventArgs(e));
             }
-            catch (ObjectDisposedException ode)
+            catch(ObjectDisposedException ode)
             {
                 MessageBox.Show("You have to be connected to the lobby to join or host a game.");
                 ConnectedCallback(this, new ConnectedEventArgs(ode));
@@ -950,7 +950,7 @@ namespace Octgn.Lobby
 
         private void ConnectedCallback(object sender, ConnectedEventArgs e)
         {
-            if (e.exception == null)
+            if(e.exception == null)
             {
                 //change_join_text("Join");
                 Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, new NoArgsDelegate(LaunchGame));
@@ -964,7 +964,7 @@ namespace Octgn.Lobby
                 //intIpTried = 0;
                 Program.LClient.isJoining = false;
                 MessageBox.Show("Unable to join server.");
-                if (Program.LClient.isHosting)
+                if(Program.LClient.isHosting)
                 {
                     Program.LClient.isHosting = false;
                     Program.LClient.unHost_Game();
@@ -981,9 +981,9 @@ namespace Octgn.Lobby
 
         private void LaunchGame()
         {
-            if (Program.LClient.isHosting)
+            if(Program.LClient.isHosting)
                 Program.LClient.ChangePlayerStatus(PlayerStatus.Hosting);
-            else if (Program.LClient.isJoining)
+            else if(Program.LClient.isJoining)
                 Program.LClient.ChangePlayerStatus(PlayerStatus.Playing);
             //Octgn.Launcher.LauncherWindow lw = (Octgn.Launcher.LauncherWindow)Application.Current.MainWindow;
             Program.lwMainWindow.NavigationService.Navigate(new Octgn.Lobby.StartGame());
@@ -992,51 +992,51 @@ namespace Octgn.Lobby
 
         private void btnHost_Click(object sender, RoutedEventArgs e)
         {
-            if (Program.LClient.isHosting)
+            if(Program.LClient.isHosting)
             {
                 MessageBox.Show("Please stop hosting first.");
             }
-            if (Program.LClient.isJoining)
+            if(Program.LClient.isJoining)
             {
                 MessageBox.Show("Please stop joining/playing a game first.");
             }
 
-            if (!Program.LClient.isHosting && !Program.LClient.isJoining)
+            if(!Program.LClient.isHosting && !Program.LClient.isJoining)
             {
-                if ((Application.Current.MainWindow as Play.PlayWindow) != null)
+                if((Application.Current.MainWindow as Play.PlayWindow) != null)
                     Application.Current.MainWindow.Close();
-                else if ((Application.Current.MainWindow as DeckBuilder.DeckBuilderWindow) != null)
+                else if((Application.Current.MainWindow as DeckBuilder.DeckBuilderWindow) != null)
                     Application.Current.MainWindow.Close();
 
                 Program.LClient.isHosting = true;
-                if (String.IsNullOrEmpty(comboBox1.Text))
+                if(String.IsNullOrEmpty(comboBox1.Text))
                 {
                     MessageBox.Show("Pick a game.");
                     Program.LClient.isHosting = false;
                     return;
                 }
                 Program.Game = null;
-                foreach (Data.Game g in Program.GamesRepository.Games)
+                foreach(Data.Game g in Program.GamesRepository.Games)
                 {
-                    if (g.Name.Equals(comboBox1.Text))
+                    if(g.Name.Equals(comboBox1.Text))
                     {
                         SelectGame(g.Id.ToString());
                         break;
                     }
                 }
-                if (Program.Game == null)
+                if(Program.Game == null)
                 {
                     Program.LClient.isHosting = false;
                     return;
                 }
-                if (!Program.Game.Definition.CheckVersion())
+                if(!Program.Game.Definition.CheckVersion())
                 {
                     Program.LClient.isHosting = false;
                     return;
                 }
 
                 Program.LClient.LastGameInfo = textBox1.Text;
-                if (Program.LClient.LastGameInfo.Trim().Equals(""))
+                if(Program.LClient.LastGameInfo.Trim().Equals(""))
                 {
                     Program.LClient.LastGameInfo = ".";
                 }
@@ -1048,9 +1048,9 @@ namespace Octgn.Lobby
         {
             try
             {
-                if (!Program.lwLobbyWindow.IsActive)
+                if(!Program.lwLobbyWindow.IsActive)
                 {
-                    if (Program.lwLobbyWindow.TaskbarItemInfo == null)
+                    if(Program.lwLobbyWindow.TaskbarItemInfo == null)
                         Program.lwLobbyWindow.TaskbarItemInfo = new TaskbarItemInfo();
                     Program.lwLobbyWindow.TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Indeterminate;
                 }
@@ -1060,7 +1060,7 @@ namespace Octgn.Lobby
 
         private void image1_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (Settings.Default.LobbySound)
+            if(Settings.Default.LobbySound)
             {
                 Settings.Default.LobbySound = false;
                 Uri myUri = new Uri("/OCTGNwLobby;component/Images/audiomute.png", UriKind.RelativeOrAbsolute);

@@ -12,44 +12,44 @@ namespace Octgn.Lobby
 
         public static void WriteError(Exception ex, String error, bool KillApp)
         {
-            lock (locker)
+            lock(locker)
             {
                 //lol
-                if (!ex.Message.Trim().Equals("Thread was being aborted."))
+                if(!ex.Message.Trim().Equals("Thread was being aborted."))
                 {
                     FileStream f = File.Open("errors.log", FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
                     StreamWriter sw = new StreamWriter(f);
                     sw.WriteLine("------------------------------------------------------------------------");
                     sw.WriteLine(DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString());
                     sw.WriteLine("handleError message: " + error);
-                    if (ex.Message != null)
+                    if(ex.Message != null)
                         sw.WriteLine("Exception Message: " + ex.Message);
-                    if (ex.Source != null)
+                    if(ex.Source != null)
                         sw.WriteLine("Source: " + ex.Source);
-                    if (ex.TargetSite != null)
+                    if(ex.TargetSite != null)
                         sw.WriteLine("Target Site: " + ex.TargetSite.ToString());
-                    if (ex.Data != null)
+                    if(ex.Data != null)
                         sw.WriteLine("Data: " + ex.Data.ToString());
-                    if (ex.InnerException != null)
+                    if(ex.InnerException != null)
                     {
                         sw.WriteLine("---------Inner Exception---------------------------------");
                         sw.WriteLine(ex.ToString());
                         sw.WriteLine("---------------------------------------------------------");
                     }
-                    if (ex.StackTrace != null)
+                    if(ex.StackTrace != null)
                     {
                         sw.WriteLine("StackTrace: ");
                         sw.Write(ex.StackTrace);
                     }
                     sw.WriteLine("------------------------------------------------------------------------\n");
                     sw.Close();
-                    if (KillApp)
+                    if(KillApp)
                     {
-                        if (Program.LClient != null)
+                        if(Program.LClient != null)
                         {
-                            Program.LClient.Close("Error.", false);
+                            Program.LClient.Close(false);
                         }
-                        if (Program.lwLobbyWindow != null)
+                        if(Program.lwLobbyWindow != null)
                         {
                             Program.lwLobbyWindow.Close();
                         }
@@ -62,14 +62,14 @@ namespace Octgn.Lobby
 
         public static bool CheckandUpload()
         {
-            lock (locker)
+            lock(locker)
             {
                 WqlObjectQuery objectQuery = new WqlObjectQuery("select * FROM Win32_OperatingSystem");
                 ManagementObjectSearcher searcher = new ManagementObjectSearcher(objectQuery);
                 string temp = "";
-                foreach (ManagementObject MO in searcher.Get())
+                foreach(ManagementObject MO in searcher.Get())
                 {
-                    foreach (PropertyData bo in MO.Properties)
+                    foreach(PropertyData bo in MO.Properties)
                     {
                         temp += bo.Name + ": " + Convert.ToString(bo.Value) + "\n";
                     }
@@ -81,7 +81,7 @@ namespace Octgn.Lobby
                     {
                         String errors = sr.ReadToEnd();
                         sr.Close();
-                        if (!String.IsNullOrEmpty(errors) && !String.IsNullOrWhiteSpace(errors))
+                        if(!String.IsNullOrEmpty(errors) && !String.IsNullOrWhiteSpace(errors))
                         {
                             errors += "Exit time: " + DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
                             errors += "------------------------------------------------------------------------\n";
@@ -99,7 +99,7 @@ namespace Octgn.Lobby
                                 {
                                     File.Delete("errors.log");
                                 }
-                                catch (Exception e) { }
+                                catch(Exception e) { }
                                 return true;
                             }
                             catch { }
@@ -110,7 +110,7 @@ namespace Octgn.Lobby
                         sr.Close();
                     }
                 }
-                catch (Exception e)
+                catch(Exception e)
                 {
                 }
                 return false;

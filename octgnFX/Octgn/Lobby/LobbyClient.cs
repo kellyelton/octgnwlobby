@@ -33,6 +33,8 @@ namespace Octgn.Lobby
         public event GameHostDelegate eGameHost;
         public event ErrorDelegate eError;
         public event UserStatusChangedDelegate eUserStatusChanged;
+        public String strHost = "";
+        public int intPort = -1;
         public List<User> OnlineUsers;
         public String strUserName;
 
@@ -63,13 +65,13 @@ namespace Octgn.Lobby
 
         private void unregEvents()
         {
-            if (Program.lwLobbyWindow != null)
+            if(Program.lwLobbyWindow != null)
                 Program.lwLobbyWindow.Closed -= lwLobbyWindow_Closed;
         }
 
         private void lwLobbyWindow_Closed(object sender, EventArgs e)
         {
-            this.Close("Lobby Closed.", true);
+            this.Close(true);
         }
 
         //
@@ -88,7 +90,43 @@ namespace Octgn.Lobby
             lastMessageSent = DateTime.Now;
             HostedGames = new ObservableCollection<HostedGame>();
             Status = PlayerStatus.Available;
+            this.onConnectionEvent += new dConnectionEvent(LobbyClient_onConnectionEvent);
+            this.onError += new dOnError(LobbyClient_onError);
+            this.onSocketMessageInput += new dOnSockMessageInput(LobbyClient_onSocketMessageInput);
             this.Connect(strHost, intPort);
+        }
+
+        private void LobbyClient_onError(object Sender, Exception e, string error)
+        {
+            try
+            {
+                ErrorLog.WriteError(e, error, false);
+                eError.Invoke(error);
+            }
+            catch(Exception ex) { }
+        }
+
+        private void LobbyClient_onConnectionEvent(object Sender, ConnectionEvent e)
+        {
+            switch(e.Event)
+            {
+                case ConnectionEvent.eConnectionEvent.eceConnect:
+                    try
+                    {
+                        eLogEvent.Invoke("CON");
+                    }
+                    catch(Exception ex) { };
+                    break;
+                case ConnectionEvent.eConnectionEvent.eceDisconnect:
+                    try
+                    {
+                        loggedIn = false;
+                        eLogEvent.Invoke("DC");
+                    }
+                    catch(Exception ex) { }
+                    unregEvents();
+                    break;
+            }
         }
 
         public void Login(String email, String password)
@@ -100,7 +138,7 @@ namespace Octgn.Lobby
             {
                 buffer = enc.GetBytes(password);
             }
-            catch (Exception e)
+            catch(Exception e)
             {
             }
             SHA1CryptoServiceProvider cryptoTransformSHA1 = new SHA1CryptoServiceProvider();
@@ -109,11 +147,11 @@ namespace Octgn.Lobby
             {
                 pass = BitConverter.ToString(cryptoTransformSHA1.ComputeHash(buffer)).Replace("-", "");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
             }
             cryptoTransformSHA1.Dispose();
-            if (pass != null)
+            if(pass != null)
             {
                 pass = pass.ToLower();
                 SocketMessage sm = new SocketMessage("LOG");
@@ -137,49 +175,49 @@ namespace Octgn.Lobby
         {
             SocketMessage sm = new SocketMessage("LOBCHAT");
             text = text.Trim();
-            for (int b = 0; b <= 6; b++)
+            for(int b = 0; b <= 6; b++)
             {
                 text.Replace((char)b, (char)0);
             }
-            if (!isHosting && !isJoining && Status != PlayerStatus.Available)
+            if(!isHosting && !isJoining && Status != PlayerStatus.Available)
             {
-                if (Status != PlayerStatus.Hosting)
+                if(Status != PlayerStatus.Hosting)
                 {
                     ChangePlayerStatus(PlayerStatus.Available);
                 }
                 lastMessageSent = DateTime.Now;
             }
 
-            if (text.Length == 0)
+            if(text.Length == 0)
                 return text;
             try
             {
                 String[] words = text.Split(new char[1] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                switch (words[0].ToLower())
+                switch(words[0].ToLower())
                 {
                     case "/reconnect":
-                        if (!Connected)
+                        if(!Connected)
                             Start();
                         return "";
                     case "/r":
-                        if (strLastWhisperFrom.Equals(""))
+                        if(strLastWhisperFrom.Equals(""))
                             return "";
                         else
                             text = "/w " + strLastWhisperFrom + " " + text.Substring(3);
                         break;
                     case "/login":
-                        if (Connected && !loggedIn)
+                        if(Connected && !loggedIn)
                         {
-                            if (words.Length == 3)
+                            if(words.Length == 3)
                             {
                                 Login(words[1], words[2]);
                             }
                         }
                         return "";
                     case "/away":
-                        if (!isHosting && !isJoining && Status != PlayerStatus.Away)
+                        if(!isHosting && !isJoining && Status != PlayerStatus.Away)
                         {
-                            if (Status != PlayerStatus.Hosting)
+                            if(Status != PlayerStatus.Hosting)
                             {
                                 ChangePlayerStatus(PlayerStatus.Away);
                             }
@@ -187,10 +225,10 @@ namespace Octgn.Lobby
                         return "";
                 }
             }
-            catch (ArgumentOutOfRangeException ae)
+            catch(ArgumentOutOfRangeException ae)
             {
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return text;
             }
@@ -225,25 +263,14 @@ namespace Octgn.Lobby
             writeMessage(sm);
         }
 
-        override
-        public void handleError(Exception ex, String error)
-        {
-            try
-            {
-                ErrorLog.WriteError(ex, error, false);
-                eError.Invoke(error);
-            }
-            catch (Exception e) { }
-        }
-
-        public override void handleInput(SocketMessage input)
+        private void LobbyClient_onSocketMessageInput(object Sender, SocketMessage input)
         {
             String head = input.Header;
             String a = "";
             String[] up;
             List<String> args = input.Arguments;
             String sPing = new String(new char[1] { (char)1 });
-            switch (head)
+            switch(head)
             {
                 case "LOGSUCCESS":
                     loggedIn = true;
@@ -253,7 +280,7 @@ namespace Octgn.Lobby
                         Settings.Default.NickName = Program.LClient.strUserName;
                         Settings.Default.Save();
                     }
-                    catch (Exception e)
+                    catch(Exception e)
                     {
                     }
                     eLogEvent.Invoke("LSUCC");
@@ -287,30 +314,30 @@ namespace Octgn.Lobby
                     eLogEvent.Invoke("RSUCC");
                     break;
                 default:
-                    if (head.Equals(sPing))
+                    if(head.Equals(sPing))
                     {
-                        if (Program.lwLobbyWindow == null)
-                            this.Close("Program failed.", true);
+                        if(Program.lwLobbyWindow == null)
+                            this.Close(true);
                         else
                         {
-                            if (!Program.lwLobbyWindow.IsActive)
-                                this.Close("Program failed.", true);
+                            if(!Program.lwLobbyWindow.IsActive)
+                                this.Close(true);
                         }
                     }
-                    if (loggedIn)
+                    if(loggedIn)
                     {
-                        if (Status != PlayerStatus.Away)
+                        if(Status != PlayerStatus.Away)
                         {
                             TimeSpan ts = new TimeSpan(DateTime.Now.Ticks - lastMessageSent.Ticks);
-                            if (ts.TotalMinutes >= 5)
+                            if(ts.TotalMinutes >= 5)
                             {
-                                if (!isHosting && !isJoining)
+                                if(!isHosting && !isJoining)
                                 {
                                     Status = PlayerStatus.Away;
                                 }
                             }
                         }
-                        switch (head)
+                        switch(head)
                         {
                             case "USERONLINE":
                                 //User[] temp = new User[args.Count];
@@ -319,19 +346,19 @@ namespace Octgn.Lobby
                                     a = args[0];
                                     up = a.Split(new char[1] { ':' });
                                     Boolean userAlreadyOnList = false;
-                                    for (int i = 0; i < OnlineUsers.Count; i++)
+                                    for(int i = 0; i < OnlineUsers.Count; i++)
                                     {
-                                        if (OnlineUsers[i].Username.Equals(up[1]))
+                                        if(OnlineUsers[i].Username.Equals(up[1]))
                                         {
                                             userAlreadyOnList = true;
                                             break;
                                         }
                                     }
-                                    if (!userAlreadyOnList)
+                                    if(!userAlreadyOnList)
                                         OnlineUsers.Add(new User(up[0], up[1]));
                                     eUserEvent.Invoke(new User(up[0], up[1]), true);
                                 }
-                                catch (Exception e)
+                                catch(Exception e)
                                 {
                                     break;
                                 }
@@ -341,9 +368,9 @@ namespace Octgn.Lobby
                                 {
                                     a = args[0];
                                     up = a.Split(new char[1] { ':' });
-                                    for (int i = 0; i < OnlineUsers.Count; i++)
+                                    for(int i = 0; i < OnlineUsers.Count; i++)
                                     {
-                                        if (OnlineUsers[i].Email.Equals(up[0]))
+                                        if(OnlineUsers[i].Email.Equals(up[0]))
                                         {
                                             User temp = OnlineUsers[i];
                                             OnlineUsers.RemoveAt(i);
@@ -353,7 +380,7 @@ namespace Octgn.Lobby
                                         }
                                     }
                                 }
-                                catch (Exception e)
+                                catch(Exception e)
                                 {
                                     break;
                                 }
@@ -362,20 +389,20 @@ namespace Octgn.Lobby
                                 try
                                 {
                                     OnlineUsers = new List<User>(0);
-                                    for (int i = 0; i < args.Count; i++)
+                                    for(int i = 0; i < args.Count; i++)
                                     {
                                         a = (String)args[i];
                                         up = a.Split(new char[1] { ':' });
-                                        if (up.Length == 2)
+                                        if(up.Length == 2)
                                             OnlineUsers.Add(new User(up[0], up[1]));
-                                        else if (up.Length == 3)
+                                        else if(up.Length == 3)
                                             OnlineUsers.Add(new User(up[0], up[1], (PlayerStatus)Enum.Parse(typeof(PlayerStatus), up[2], true)));
                                     }
                                     eUserEvent.Invoke(new User("", ""), true);
                                     SocketMessage sm = new SocketMessage("GAMELIST");
                                     writeMessage(sm);
                                 }
-                                catch (Exception e)
+                                catch(Exception e)
                                 { }
                                 break;
                             case "LOBCHAT":
@@ -383,7 +410,7 @@ namespace Octgn.Lobby
                                 {
                                     eLobbyChat.Invoke(LobbyChatTypes.Global, (String)args[0], (String)args[1], false);
                                 }
-                                catch (Exception e)
+                                catch(Exception e)
                                 { }
                                 break;
                             case "XAMLCHAT":
@@ -391,44 +418,44 @@ namespace Octgn.Lobby
                                 {
                                     eLobbyChat.Invoke(LobbyChatTypes.System, (String)args[0], (String)args[1], true);
                                 }
-                                catch (Exception e)
+                                catch(Exception e)
                                 { }
                                 break;
                             case "LOBW":
                                 try
                                 {
                                     String[] s = args[0].Split(new char[1] { ':' });
-                                    if (s[0] != strUserName)
+                                    if(s[0] != strUserName)
                                         strLastWhisperFrom = s[0];
                                     eLobbyChat.Invoke(LobbyChatTypes.Whisper, (String)args[0], (String)args[1], false);
                                 }
-                                catch (Exception e) { };
+                                catch(Exception e) { };
                                 break;
                             case "CHATERROR":
                                 try
                                 {
                                     eLobbyChat.Invoke(LobbyChatTypes.Error, "ERROR", (String)args[0], false);
                                 }
-                                catch (Exception e) { };
+                                catch(Exception e) { };
                                 break;
                             case "CHATINFO":
                                 try
                                 {
                                     eLobbyChat.Invoke(LobbyChatTypes.System, "SYSTEM", (String)args[0], false);
                                 }
-                                catch (Exception e) { };
+                                catch(Exception e) { };
                                 break;
                             case "STATUS":
                                 String stat = args[0];
                                 String usn = args[1];
-                                if (usn.Equals(strUserName))
+                                if(usn.Equals(strUserName))
                                 {
                                     Status = (PlayerStatus)Enum.Parse(typeof(PlayerStatus), stat, true);
                                     eUserStatusChanged.Invoke(new User("", strUserName), Status);
                                 }
-                                foreach (User u in OnlineUsers)
+                                foreach(User u in OnlineUsers)
                                 {
-                                    if (u.Username.Equals(usn))
+                                    if(u.Username.Equals(usn))
                                     {
                                         u.Status = (PlayerStatus)Enum.Parse(typeof(PlayerStatus), stat, true);
                                         eUserStatusChanged.Invoke(u, u.Status);
@@ -447,7 +474,7 @@ namespace Octgn.Lobby
                                     hg.intUGameNum = int.Parse((string)args[5]);
                                     eGameHost.Invoke(hg, false, false);
                                 }
-                                catch (Exception e) { };
+                                catch(Exception e) { };
                                 break;
                             case "UNHOST":
                                 try
@@ -456,7 +483,7 @@ namespace Octgn.Lobby
                                     hg.intUGameNum = int.Parse((String)args[0]);
                                     eGameHost.Invoke(hg, true, false);
                                 }
-                                catch (Exception e) { };
+                                catch(Exception e) { };
                                 break;
                             case "GAMELIST":
                                 try
@@ -468,7 +495,7 @@ namespace Octgn.Lobby
                                     hg.intUGameNum = int.Parse((string)args[0]);
                                     eGameHost.Invoke(hg, false, true);
                                 }
-                                catch (Exception e) { };
+                                catch(Exception e) { };
                                 break;
                             default:
 #if (DEBUG)
@@ -485,28 +512,6 @@ namespace Octgn.Lobby
                     }
                     break;
             }
-        }
-
-        override
-        public void handleConnect(String host, Int32 port)
-        {
-            try
-            {
-                eLogEvent.Invoke("CON");
-            }
-            catch (Exception e) { };
-        }
-
-        override
-        public void handleDisconnect(String reason, String host, int port)
-        {
-            try
-            {
-                loggedIn = false;
-                eLogEvent.Invoke("DC");
-            }
-            catch (Exception e) { }
-            unregEvents();
         }
 
         public class User

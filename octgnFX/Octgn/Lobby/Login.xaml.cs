@@ -12,7 +12,7 @@ namespace Octgn.Lobby
         {
             InitializeComponent();
             tbLogEmail.Text = Settings.Default.Email;
-            if (!Settings.Default.password.Trim().Equals(""))
+            if(!Settings.Default.password.Trim().Equals(""))
             {
                 cbSavePass.IsChecked = true;
                 tbLogPass.Password = Settings.Default.password;
@@ -36,7 +36,7 @@ namespace Octgn.Lobby
                 (
                     delegate()
                     {
-                        switch (ConEvent)
+                        switch(ConEvent)
                         {
                             case "LSUCC":
 
@@ -73,37 +73,37 @@ namespace Octgn.Lobby
             {
                 Program.LClient.eLogEvent -= LClient_eConnection;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
             }
-            Program.LClient.Close("Exit Lobby", true);
+            Program.LClient.Close(true);
             Program.lwLobbyWindow.Close();
             Program.lwLobbyWindow = null;
         }
 
         private void btnReg_Click(object sender, RoutedEventArgs e)
         {
-            if (tbRegPass1.Password.Trim().Equals("") || tbRegPass1.Password.Trim().Length < 6)
+            if(tbRegPass1.Password.Trim().Equals("") || tbRegPass1.Password.Trim().Length < 6)
                 MessageBox.Show("Password must be at least 6 characters long.", "Error");
-            else if (tbRegEmail.Text.Trim().Equals(""))
+            else if(tbRegEmail.Text.Trim().Equals(""))
                 MessageBox.Show("Email must not be empty.");
-            else if (tbRegUsername.Text.Trim().Equals(""))
+            else if(tbRegUsername.Text.Trim().Equals(""))
                 MessageBox.Show("Username must not be empty.");
-            else if (tbRegUsername.Text.Trim().Contains(" "))
+            else if(tbRegUsername.Text.Trim().Contains(" "))
                 MessageBox.Show("Username can not contain spaces.");
             else
             {
-                if (Regex.IsMatch(tbRegUsername.Text.Trim(), @"[^a-zA-Z0-9-_]"))
+                if(Regex.IsMatch(tbRegUsername.Text.Trim(), @"[^a-zA-Z0-9-_]"))
                 {
                     MessageBox.Show("Username contains invalid characters");
                 }
                 else
                 {
-                    if (!tbRegPass1.Password.Equals(tbRegPass2.Password))
+                    if(!tbRegPass1.Password.Equals(tbRegPass2.Password))
                         MessageBox.Show("Password must match!", "Error");
                     else
                     {
-                        if (Regex.IsMatch(tbRegPass1.Password, @"[^a-zA-Z0-9-_\!\@\#\$\%\^\&\*\(\)\+\=\`\~\[\]\{\}\;\:\|\\\<\>\?\/\.\,]"))
+                        if(Regex.IsMatch(tbRegPass1.Password, @"[^a-zA-Z0-9-_\!\@\#\$\%\^\&\*\(\)\+\=\`\~\[\]\{\}\;\:\|\\\<\>\?\/\.\,]"))
                         {
                             MessageBox.Show("Password contains invalid characters");
                         }
@@ -123,7 +123,7 @@ namespace Octgn.Lobby
         private void funLogin()
         {
             Settings.Default.Email = tbLogEmail.Text;
-            if (cbSavePass.IsChecked == true)
+            if(cbSavePass.IsChecked == true)
                 Settings.Default.password = tbLogPass.Password;
             else
                 Settings.Default.password = "";
@@ -133,7 +133,7 @@ namespace Octgn.Lobby
 
         private void tbLogPass_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Enter)
+            if(e.Key == System.Windows.Input.Key.Enter)
                 funLogin();
         }
 
